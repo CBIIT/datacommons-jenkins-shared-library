@@ -1,6 +1,6 @@
 def call(Map config=[:],Closure body) {
     node("${config.node}") {
-        projectProperties
+        projectProperties()
         timestamps {
             body()
         }
