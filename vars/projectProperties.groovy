@@ -1,4 +1,4 @@
-def call(Closure body){
+def call(Map gitParams, Closure body){
     properties(
             [
                     [$class: 'JiraProjectProperty'],
@@ -8,7 +8,8 @@ def call(Closure body){
                             [
                                     [$class: 'ChoiceParameter', choiceType: 'PT_SINGLE_SELECT', description: 'Choose the environment that this deployment should apply', filterLength: 1, filterable: false, name: 'Environment', randomName: 'choice-parameter-5032484503854306', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: true, script: 'return ["dev"]'], script: [classpath: [], sandbox: true, script: 'return ["dev","qa","stage","prod","perf"]']]],
                                     [$class: 'ChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false, name: 'ProjectName', randomName: 'choice-parameter-5032484505435771', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: true, script: 'return ["bento"]'], script: [classpath: [], sandbox: true, script: 'return ["bento","cds","gmb","ctdc","c3dc"]']]],
-                                    body.each {"${it}"},
+                                    gitParameter(branch: "", branchFilter: "origin/(.*)", defaultValue: "master", description: "Select Branch or Tag to build", name: "${gitParams.name}", quickFilterEnabled: false, selectedValue: "NONE", sortMode: "NONE", tagFilter: "*", type: "GitParameterDefinition",useRepository: "${gitParams.remoteRepoUrl}")
+                                    body(),
                             ],
 
                     )
