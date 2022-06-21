@@ -1,4 +1,4 @@
-def call(Map config=[:],Closure body){
+def call(Map config,Closure body){
     properties(
             [
                     [$class: 'JiraProjectProperty'],
