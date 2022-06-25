@@ -5,7 +5,7 @@ def call(Map config){
                 inventory: config.inventory,
                 extraVars: [
                         tier: config.tier,
-                        project_name: config.projectName
+                        project_name: config.projectName,
                 ],
                 colorized: true)
     }
