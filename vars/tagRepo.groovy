@@ -3,9 +3,9 @@ def call(Map config) {
         #!/bin/bash
         cd "${WORKSPACE}/${config.checkoutDirectory}"
         ls -l
-        gitToken="\$(aws secretsmanager get-secret-value  --secret-id 'github/pat' --region us-east-1 | jq --raw-output .SecretString | jq -r .token)"
+        export gitToken="\$(aws secretsmanager get-secret-value  --secret-id 'github/pat' --region us-east-1 | jq --raw-output .SecretString | jq -r .token)"
         echo "Applying tag ${config.gitTag} to ${config.gitUrl}"
-       
+        echo $gitToken
 """
 
 
