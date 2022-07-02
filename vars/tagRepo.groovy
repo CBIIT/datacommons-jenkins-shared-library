@@ -1,5 +1,5 @@
 def call(Map config) {
-        env.GIT_TOKEN = sh(script: 'aws secretsmanager get-secret-value  --secret-id github/pat --region us-east-1 | jq --raw-output .SecretString | jq -r .token', returnStdout: true)
+        env.GIT_TOKEN = sh(script: 'aws secretsmanager get-secret-value  --secret-id github/pat --region us-east-1 | jq --raw-output .SecretString | jq -r .token | tr -d \'\\n\'', returnStdout: true)
         sh """
         cd "${WORKSPACE}/${config.checkoutDirectory}"
         echo "Applying tag ${config.gitTag} to ${config.gitUrl}"
