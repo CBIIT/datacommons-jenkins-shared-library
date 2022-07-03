@@ -21,7 +21,6 @@ def call(Map slackParams) {
     )
     try {
         process = [ 'sh', '-c', "curl -v -k -X POST -H \"Content-Type: application/json\" -d '${slackPayload}' '${slackParams.slackUrl}'" ].execute()
-        println process.text
         //sh "curl -X POST -H 'Content-type: application/json' --data '${slackPayload}'  '${slackParams.slackUrl}'"
     }catch(err){
         println "${err} Slack notify failed"
