@@ -2,6 +2,7 @@ import groovy.json.JsonOutput
 
 def call(Map slackParams) {
     long epoch = System.currentTimeMillis()/1000
+    def BUILD_COLORS = ['SUCCESS': 'good', 'FAILURE': 'danger', 'UNSTABLE': 'danger', 'ABORTED': 'danger']
     def slackPayload = JsonOutput.toJson(
             [
                     icon_emoji: slackParams.emojiIcon,
@@ -13,7 +14,7 @@ def call(Map slackParams) {
                                     footer: slackParams.footerText,
                                     ts: epoch,
                                     mrkdwn_in: ["footer", "title"],
-                                    color: slackParams.color
+                                    color: "${BUILD_COLORS[currentBuild.currentResult]}"
                             ]
                     ]
             ]
