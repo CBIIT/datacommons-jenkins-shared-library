@@ -12,7 +12,7 @@ def call(Map config){
 def ecr_images_json = cmd.execute()
 ecr_images_json.waitFor()
 def ecr_images_list = ecr_images_json.text.readLines().collect { it.substring(it.lastIndexOf("\\t") + 1) }
-ecr_images_list.removeAll('latest'] as Object[])
+ecr_images_list.removeAll(['latest'] as Object[])
 ecr_images_list.removeAll { it.contains('production') }
 List tagnames = ecr_images_list.sort()
 return tagnames"""]]],
