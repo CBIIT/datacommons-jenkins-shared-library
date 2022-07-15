@@ -1,4 +1,4 @@
-def call(Map config){
+def call(Map config,Closure body){
     properties(
             [
                     [$class: 'JiraProjectProperty'],
@@ -9,6 +9,7 @@ def call(Map config){
                                     [$class: 'ChoiceParameter', choiceType: 'PT_SINGLE_SELECT', description: 'Choose the environment that this deployment should apply', filterLength: 1, filterable: false, name: 'Environment', randomName: 'choice-parameter-5032484503854306', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: true, script: 'return ["dev"]'], script: [classpath: [], sandbox: true, script: 'return ["dev","qa","stage","prod","perf"]']]],
                                     [$class: 'ChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false, name: 'ProjectName', randomName: 'choice-parameter-5032484505435771', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: true, script: 'return ["bento"]'], script: [classpath: [], sandbox: true, script: 'return ["bento","cds","gmb","ctdc","c3dc","vote"]']]],
                                     gitParameter(branch: "", branchFilter: "origin/(.*)", defaultValue: "master", description: "Select Branch or Tag to build", name: "${config.name}", quickFilterEnabled: false, selectedValue: "NONE", sortMode: "NONE", tagFilter: "*", type: "GitParameterDefinition",useRepository: "${config.remoteRepoUrl}"),
+                                    body()
                             ]
 
                     )
