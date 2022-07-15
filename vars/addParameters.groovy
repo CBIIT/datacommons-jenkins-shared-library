@@ -6,7 +6,6 @@ def call(Closure body){
     jobParams = [
             body()
     ] + existing
-
     properties([
             parameters(jobParams)
     ])
