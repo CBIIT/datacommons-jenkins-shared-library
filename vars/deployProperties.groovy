@@ -11,7 +11,7 @@ def call(Map config){
                                     [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false, name: "${config.parameterName}", randomName: 'choice-parameter-8744093374048404', referencedParameters: '', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: false, script: 'return ["latest"]'], script: [classpath: [], sandbox: false, script: """def cmd = "/usr/local/bin/aws ecr list-images --repository-name ${config.repoName} --filter tagStatus=TAGGED --region us-east-1 --output text"
 def ecr_images_json = cmd.execute()
 ecr_images_json.waitFor()
-def ecr_images_list = ecr_images_json.text.readLines().collect { it.substring(it.lastIndexOf("\t") + 1) }
+def ecr_images_list = ecr_images_json.text.readLines().collect { it.substring(it.lastIndexOf("\\t") + 1) }
 ecr_images_list.removeAll('latest'] as Object[])
 ecr_images_list.removeAll { it.contains('production') }
 List tagnames = ecr_images_list.sort()
