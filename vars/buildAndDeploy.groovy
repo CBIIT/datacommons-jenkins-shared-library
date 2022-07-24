@@ -2,7 +2,7 @@ def call(Map config=[:]){
     build(label: "${config.label}") {
         buildProperties(name: "${config.parameterName}", remoteRepoUrl: "${config.codeRepoUrl}") {
         }
-        def checkoutBranch = "params." + "${config.parameterName}
+        def checkoutBranch = "params." + "${config.parameterName}"
         echo checkoutBranch
         gitCheckout checkoutDirectory: "${config.checkoutDirectory}", gitUrl: "${config.codeRepoUrl}", gitBranch: "${checkoutBranch}"
         gitCheckout checkoutDirectory: "icdc-devops", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
