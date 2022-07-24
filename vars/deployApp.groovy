@@ -1,4 +1,4 @@
-def call(Map config=[:],Closure body){
+def call(Map config=[:]){
     deploy(label: "${config.label}") {
         deployProperties parameterName: "$config.parameterName}", repoName: "${config.repoName}"
         gitCheckout checkoutDirectory: "icdc-devops", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
@@ -10,5 +10,4 @@ def call(Map config=[:],Closure body){
             notify secretPath: "${config.slackSecretPath}", secretName: "${config.slackSecretName}"
         }
     }
-    body()
 }
