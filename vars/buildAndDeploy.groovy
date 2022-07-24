@@ -11,6 +11,9 @@ def call(Map config=[:]){
             runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.buildPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
         }
         stage("deploy"){
+            setEnvValues(){
+                env."${config.appVersionName}" = "${checkoutBranch}-${BUILD_NUMBER}"
+            }
             runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.deployPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
         }
         stage("tag repos"){
