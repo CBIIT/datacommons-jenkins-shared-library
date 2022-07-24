@@ -1,5 +1,9 @@
-def call(Map gitParams) {
-    dir("${gitParams.checkoutDirectory}"){
-        git branch: "${gitParams.gitBranch}", changelog: false, poll: false, url: "${gitParams.gitUrl}"
+def call(Map config) {
+    if ("${config.checkoutDirectory}"){
+        dir("${config.checkoutDirectory}"){
+            git branch: "${config.gitBranch}", changelog: false, poll: false, url: "${config.gitUrl}"
+        }
+    }else{
+        git branch: "${config.gitBranch}", changelog: false, poll: false, url: "${config.gitUrl}"
     }
 }
