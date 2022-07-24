@@ -1,6 +1,6 @@
 def call(Map config=[:]){
     deploy(label: "${config.label}") {
-        deployProperties parameterName: "$config.parameterName}", repoName: "${config.repoName}"
+        deployProperties parameterName: "${config.parameterName}", repoName: "${config.repoName}"
         gitCheckout checkoutDirectory: "icdc-devops", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
         setEnvValues(type: "deploy"){}
         stage("deploy"){
