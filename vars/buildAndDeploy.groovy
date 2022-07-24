@@ -3,7 +3,7 @@ def call(Map config=[:]){
         buildProperties(
                 name: "${config.parameterName}",
                 remoteRepoUrl: "${config.codeRepoUrl}"
-        )
+        ){}
         def checkoutBranch = "params." + "${config.parameterName}"
         echo params[config.parameterName]
         //gitCheckout checkoutDirectory: "${config.checkoutDirectory}", gitUrl: "${config.codeRepoUrl}", gitBranch: "${checkoutBranch}"
