@@ -4,6 +4,8 @@ def call(Map config) {
             git branch: "${config.gitBranch}", changelog: false, poll: false, url: "${config.gitUrl}"
         }
     }else{
-        git branch: "${config.gitBranch}", changelog: false, poll: false, url: "${config.gitUrl}"
+        dir("${WORKSPACE}"){
+            git branch: "${config.gitBranch}", changelog: false, poll: false, url: "${config.gitUrl}"
+        }
     }
 }
