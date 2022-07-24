@@ -3,9 +3,9 @@ def call(Map config=[:]){
         buildProperties(
                 name: "${config.parameterName}",
                 remoteRepoUrl: "${config.codeRepoUrl}"
-        ){}
+        )
         def checkoutBranch = "params." + "${config.parameterName}"
-        echo params[config.parameterName]
+        echo params["${config.parameterName}"]
         //gitCheckout checkoutDirectory: "${config.checkoutDirectory}", gitUrl: "${config.codeRepoUrl}", gitBranch: "${checkoutBranch}"
         gitCheckout checkoutDirectory: "icdc-devops", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
         setEnvValues(){}
