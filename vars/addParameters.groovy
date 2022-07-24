@@ -1,8 +1,8 @@
-def call(config=[]){
+def call(List config){
     existing = currentBuild.rawBuild.parent.properties
             .findAll { it.value instanceof hudson.model.ParametersDefinitionProperty }
             .collectMany { it.value.parameterDefinitions }
-    jobParams = config + existing
+    jobParams = config.additionalParams + existing
     properties([
             parameters(jobParams)
     ])
