@@ -6,10 +6,10 @@ def call(Map config=[:]){
         gitCheckout checkoutDirectory: "icdc-devops", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
         setEnvValues(type: "build"){}
         stage("build"){
-            runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${buildPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
+            runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.buildPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
         }
         stage("deploy"){
-            runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${deployPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
+            runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.deployPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
         }
         stage("tag repos"){
             tagRepo gitTag: "${params.${config.parameterNam}}", gitUrl: "${config.codeRepoUrl}", checkoutDirectory: "${config.checkoutDirectory}"
