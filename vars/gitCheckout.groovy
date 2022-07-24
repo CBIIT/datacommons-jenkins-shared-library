@@ -1,5 +1,9 @@
 def call(Map config) {
-        dir("${config.checkoutDirectory}"){
+    if ("${config.checkoutDirectory}" == "workspace"){
+            git branch: "${config.gitBranch}", changelog: false, poll: false, url: "${config.gitUrl}"
+    } else {
+        dir("${config.checkoutDirectory}") {
             git branch: "${config.gitBranch}", changelog: false, poll: false, url: "${config.gitUrl}"
         }
+    }
 }
