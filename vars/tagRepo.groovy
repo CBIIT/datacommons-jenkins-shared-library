@@ -3,7 +3,7 @@ def call(Map config) {
         env.GIT_URL = "${config.gitUrl}".replace('https://','')
         def targetDirectory = ""
         if ("${config.checkoutDirectory}" == "workspace"){
-                targetDirectory = "${WORKSPACE}"
+                targetDirectory = "."
         }else{
                 targetDirectory = "${WORKSPACE}/${config.checkoutDirectory}"
         }
