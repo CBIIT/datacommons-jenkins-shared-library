@@ -1,6 +1,6 @@
 def call(Map config = [:]){
     stage('write deployments.yaml') {
-        deployment = readYaml file: config.deploymentFile
+        def deployment = readYaml file: config.deploymentFile
         deployment.services.each {
             if (it.key == config.service){
                 it.value.version =  config.version
