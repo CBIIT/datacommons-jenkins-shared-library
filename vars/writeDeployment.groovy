@@ -11,7 +11,7 @@ def call(Map config = [:]){
                 deployment.services[config.service] = map
             }
         }
-        writeYaml file: config.deploymentFile, datas: deployement, overwrite: "true"
+        writeYaml file: config.deploymentFile, datas: deployment, overwrite: "true"
     }
     stage("tag deployment repo"){
         tagRepo gitTag: params["DeployRepoTag"], gitUrl: config.deploymentRepoUrl, checkoutDirectory: config.deploymentCheckoutDirectory
