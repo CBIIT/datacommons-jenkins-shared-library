@@ -1,8 +1,9 @@
 def call(Map config=[:]){
     build(label: "${config.label}") {
         buildProperties(
-                name: "${config.parameterName}",
-                remoteRepoUrl: "${config.codeRepoUrl}"
+                name: config.parameterName,
+                remoteRepoUrl: config.codeRepoUrl,
+                deploymentRepoUrl: config.deploymentRepoUrl
         )
         gitCheckout checkoutDirectory: config.checkoutDirectory, gitUrl: config.codeRepoUrl, gitBranch: params[config.parameterName]
         gitCheckout checkoutDirectory: config.deploymentCheckoutDirectory, gitUrl: config.deploymentRepoUrl, gitBranch: params["DeployRepoTag"]
