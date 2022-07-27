@@ -12,6 +12,8 @@ def call(Map config = [:]){
                 deployment.services[config.service] = map
                 writeYaml file: config.deploymentFile, data: deployment, overwrite: true
             }
+            def data = readYaml file: config.deploymentFile
+            println data
         }
     }
     stage("tag deployment repo"){
