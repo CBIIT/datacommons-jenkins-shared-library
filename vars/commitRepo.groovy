@@ -9,12 +9,12 @@ def call(Map config) {
     }
     sh """
         cd "${targetDirectory}"
-        git add .
-        git commit -m'updated deployment.yaml'
         echo "Applying tag ${config.gitTag} to ${config.gitUrl}"
         git config user.email "jenkins@bento-tools.org"
         git config user.name "Bento Jenkins"
+        git add .
+        git commit -am "updated deployment.yaml"
         git tag --no-sign -a "${config.gitTag}-${BUILD_NUMBER}" -m "Jenkins tag: ${config.gitTag}-${BUILD_NUMBER}"
-        git push "https://${GIT_TOKEN}:x-oauth-basic@${GIT_URL}" -atomic origin  "${config.gitTag}" --tags
+        git push "https://${GIT_TOKEN}:x-oauth-basic@${GIT_URL}" --tags
 """
 }
