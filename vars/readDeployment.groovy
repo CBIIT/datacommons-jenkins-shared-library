@@ -1,4 +1,5 @@
-//import groovy.yaml.YamlBuilder
+@groovy.lang.Grab
+import groovy.yaml.YamlBuilder
 def call(Map config = [:]){
     stage('read deployments.yaml') {
                 def deployment = new File(config.deploymentFile)
