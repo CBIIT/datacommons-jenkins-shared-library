@@ -1,4 +1,4 @@
-import groovy.yaml.YamlBuilder
+//import groovy.yaml.YamlBuilder
 def call(Map config = [:]){
     stage('read deployments.yaml') {
         steps {
