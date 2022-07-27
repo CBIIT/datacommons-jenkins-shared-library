@@ -4,7 +4,8 @@ def call(Map config=[:]){
                 name: "${config.parameterName}",
                 remoteRepoUrl: "${config.codeRepoUrl}"
         )
-        gitCheckout checkoutDirectory: "${config.checkoutDirectory}", gitUrl: "${config.codeRepoUrl}", gitBranch: params["${config.parameterName}"]
+        gitCheckout checkoutDirectory: config.checkoutDirectory, gitUrl: config.codeRepoUrl, gitBranch: params[config.parameterName]
+        gitCheckout checkoutDirectory: config.deploymentCheckoutDirectory, gitUrl: config.deploymentRepoUrl, gitBranch: params["DeployRepoTag"]
         gitCheckout checkoutDirectory: "icdc-devops", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
         setEnvValues(){}
         stage("build"){
@@ -18,6 +19,14 @@ def call(Map config=[:]){
             }
             runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.deployPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
         }
+        writeDeployment(
+                version: env[config.appVersionName],
+                image: env[config.appVersionName],
+                service: config.service,
+                deploymentFile: config.deploymentFile,
+                deploymentRepoUrl: config.deploymentRepoUrl,
+                deploymentCheckoutDirectory: config.deploymentCheckoutDirectory
+        )
         stage("tag repos"){
             tagRepo gitTag: params["${config.parameterName}"], gitUrl: "${config.codeRepoUrl}", checkoutDirectory: "${config.checkoutDirectory}"
         }
