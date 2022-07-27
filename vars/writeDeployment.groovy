@@ -6,12 +6,13 @@ def call(Map config = [:]){
                 it.value.version =  config.version
                 it.value.image = config.image
                 it.value.buildNumber = env.BUILD_NUMBER
+                writeYaml file: config.deploymentFile, data: deployment, overwrite: true
             }else{
                 def map = [version: config.version,image: config.image,buildNumber: env.BUILD_NUMBER ]
                 deployment.services[config.service] = map
+                writeYaml file: config.deploymentFile, data: deployment, overwrite: true
             }
         }
-        writeYaml file: config.deploymentFile, data: deployment, overwrite: true
     }
     stage("tag deployment repo"){
         tagRepo gitTag: params["DeployRepoTag"], gitUrl: config.deploymentRepoUrl, checkoutDirectory: config.deploymentCheckoutDirectory
