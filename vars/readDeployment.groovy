@@ -1,4 +1,4 @@
-@groovy.lang.Grab
+@Grab("org.codehaus.groovy:groovy-yaml:3.0.4")
 import groovy.yaml.YamlBuilder
 def call(Map config = [:]){
     stage('read deployments.yaml') {
