@@ -7,13 +7,18 @@ def call(Map config=[:]){
         )
         gitCheckout checkoutDirectory: config.checkoutDirectory, gitUrl: config.codeRepoUrl, gitBranch: params[config.parameterName]
         gitCheckout checkoutDirectory: config.deploymentCheckoutDirectory, gitUrl: config.deploymentRepoUrl, gitBranch: params["DeployRepoTag"]
+        if (config.checkoutAdditionalRepo == true){
+            additionalParameters values: [
+                    gitParameter(branch: "", branchFilter: "origin/(.*)", defaultValue: "main", description: "Select Branch or Tag to build", name: "DeployRepoTag", quickFilterEnabled: false, selectedValue: "NONE", sortMode: "NONE", tagFilter: "*", type: "GitParameterDefinition",useRepository: config.deploymentRepoUrl)
+            ]
+            gitCheckout checkoutDirectory: config.additionalCheckoutDirectory, gitUrl: config.additionalRepoUrl, gitBranch: params[config.additionalParameterName]
+        }
         gitCheckout checkoutDirectory: "icdc-devops", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
         setEnvValues(){}
         stage("build"){
             runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.buildPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
         }
         stage("deploy"){
-
             setEnvValues(){
                 def version = params["${config.parameterName}"] + "-" + "${BUILD_NUMBER}"
                 env."${config.appVersionName}" = version
