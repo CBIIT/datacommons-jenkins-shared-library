@@ -1,5 +1,5 @@
 def call(Map config = [:]){
-    stage('write deployments.yaml') {
+    stage('update deployments.yaml') {
         def deployment = readYaml file: config.deploymentFile
         deployment.services.each {
             if (it.key == config.service){
