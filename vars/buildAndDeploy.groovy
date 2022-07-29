@@ -25,14 +25,16 @@ def call(Map config=[:]){
             }
             runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.deployPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
         }
-        writeDeployment(
-                version: env[config.appVersionName],
-                image: env[config.appVersionName],
-                service: config.service,
-                deploymentFile: config.deploymentFile,
-                deploymentRepoUrl: config.deploymentRepoUrl,
-                deploymentCheckoutDirectory: config.deploymentCheckoutDirectory
-        )
+        if (params["Release"] == true){
+            writeDeployment(
+                    version: env[config.appVersionName],
+                    image: env[config.appVersionName],
+                    service: config.service,
+                    deploymentFile: config.deploymentFile,
+                    deploymentRepoUrl: config.deploymentRepoUrl,
+                    deploymentCheckoutDirectory: config.deploymentCheckoutDirectory
+            )
+        }
         stage("tag repos"){
             tagRepo gitTag: params["${config.parameterName}"], gitUrl: "${config.codeRepoUrl}", checkoutDirectory: "${config.checkoutDirectory}"
         }
