@@ -15,6 +15,7 @@ def call(Map config) {
         git config user.name "Bento Jenkins"
         git add .
         git commit -am "tagging latest deployment.yaml"
+        git push "https://${GIT_TOKEN}:x-oauth-basic@${GIT_URL}"
         git tag --no-sign -a "${config.service}-${BUILD_NUMBER}" -m "Jenkins tag: ${config.service}-${BUILD_NUMBER}"
         git push "https://${GIT_TOKEN}:x-oauth-basic@${GIT_URL}" --tags
 """
