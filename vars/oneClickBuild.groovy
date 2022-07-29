@@ -1,5 +1,5 @@
 def call(Map config=[:]) {
-    build(label: config.label) {
+    buildStage(label: config.label) {
         buildProperties(
                 name: config.parameterName,
                 remoteRepoUrl: config.codeRepoUrl

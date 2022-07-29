@@ -15,6 +15,6 @@ def call(Map config = [:]){
         }
     }
     stage("update deployment repo"){
-        commitRepo gitTag: params["DeployRepoTag"], gitUrl: config.deploymentRepoUrl, checkoutDirectory: config.deploymentCheckoutDirectory
+        commitRepo service: config.service, gitTag: params["DeployRepoTag"], gitUrl: config.deploymentRepoUrl, checkoutDirectory: config.deploymentCheckoutDirectory
     }
 }
