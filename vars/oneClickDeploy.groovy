@@ -6,9 +6,10 @@ def call(Map config=[:]) {
         )
         gitCheckout checkoutDirectory: config.checkoutDirectory, gitUrl: config.codeRepoUrl, gitBranch: params[config.parameterName]
         def deployment = readYaml file: config.deploymentFile
+        def jobPath = "One-Click-Deployment/Bento/_jobs/Deploy"
         deployment.services.each {
             buildJob(
-                    jobName: "Deploy" + "${it.key}".capitalize(),
+                    jobName:  jobPath + "${it.key}".capitalize(),
                     parameters:[
                             string(name: 'Environment', value: params["Environment"]),
                             string(name: 'ProjectName', value: deployment.project),
