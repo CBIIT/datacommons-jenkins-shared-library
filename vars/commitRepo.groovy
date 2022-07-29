@@ -13,8 +13,8 @@ def call(Map config) {
         git config user.email "jenkins@bento-tools.org"
         git config user.name "Bento Jenkins"
         git add .
-        git commit -am "updated deployment.yaml"
-        git tag --no-sign -a "${config.gitTag}-${BUILD_NUMBER}" -m "Jenkins tag: ${config.service}-${BUILD_NUMBER}"
+        git commit -am "tagging latest deployment.yaml"
+        git tag --no-sign -a "${config.service}-${BUILD_NUMBER}" -m "Jenkins tag: ${config.service}-${BUILD_NUMBER}"
         git push "https://${GIT_TOKEN}:x-oauth-basic@${GIT_URL}" --tags
 """
 }
