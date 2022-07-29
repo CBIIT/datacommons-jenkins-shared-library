@@ -10,6 +10,7 @@ def call(Map config) {
     sh """
         cd "${targetDirectory}"
         echo "Applying tag ${config.gitTag} to ${config.gitUrl}"
+        git config --global push.followTags true
         git config user.email "jenkins@bento-tools.org"
         git config user.name "Bento Jenkins"
         git add .
