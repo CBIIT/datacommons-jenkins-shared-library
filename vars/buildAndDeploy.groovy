@@ -19,12 +19,13 @@ def call(Map config=[:]){
             runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.buildPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
         }
         stage("deploy"){
-            if (config.service == "frontend"){
-                env["BE_VERSION"] = getVersion(service: "backend",deploymentFile: config.deploymentFile)
-            }
             setEnvValues(){
                 def version = params["${config.parameterName}"] + "-" + "${BUILD_NUMBER}"
                 env."${config.appVersionName}" = version
+                if (config.service == "frontend"){
+                    env.BE_VERSION  = getVersion(service: "backend",deploymentFile: config.deploymentFile)
+                    println env.BE_VERSION
+                }
             }
             runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.deployPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
         }
