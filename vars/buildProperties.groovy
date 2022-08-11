@@ -3,6 +3,7 @@ def call(Map config){
     if (config.useCustomBranch == "yes") {
         defaultBranch = config.customBranch
     }
+
     properties(
             [
                     [$class: 'JiraProjectProperty'],
@@ -11,8 +12,9 @@ def call(Map config){
                     parameters(
                             [
                                     [$class: 'ChoiceParameter', choiceType: 'PT_SINGLE_SELECT', description: 'Choose the environment that this deployment should apply', filterLength: 1, filterable: false, name: 'Environment', randomName: 'choice-parameter-5032484503854306', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: true, script: 'return ["dev"]'], script: [classpath: [], sandbox: true, script: 'return ["dev","qa","stage","prod","perf"]']]],
-                                    [$class: 'ChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false, name: 'ProjectName', randomName: 'choice-parameter-5032484505435771', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: true, script: 'return ["bento"]'], script: [classpath: [], sandbox: true, script: 'return ["bento","cds","gmb","ctdc","c3dc","vote"]']]],
-                                    gitParameter(branch: "", branchFilter: "origin/(.*)", defaultValue: "${defaultBranch}", description: "Select Branch or Tag to build", name: "${config.name}", quickFilterEnabled: false, selectedValue: "NONE", sortMode: "NONE", tagFilter: "*", type: "GitParameterDefinition",useRepository: "${config.remoteRepoUrl}"),
+                                    [$class: 'ChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false, name: 'ProjectName', randomName: 'choice-parameter-5032484505435771', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: true, script: 'return ["bento"]'], script: [classpath: [], sandbox: true, script: 'return ["bento","cds","gmb","ctdc","c3dc"]']]],
+                                    [$class: 'ChoiceParameter', choiceType: 'PT_RADDIO', filterLength: 1, filterable: false, name: 'FilterRepo', randomName: 'choice-parameter-5032484505435771', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: true, script: 'return ["Branch"]'], script: [classpath: [], sandbox: true, script: 'return ["Branch","Tag"]']]],
+                                    gitParameter(branch: "", branchFilter: filterBranch(params.FilterRepo), defaultValue: "${defaultBranch}", description: "Filter Repo", name: "${config.name}", quickFilterEnabled: false, selectedValue: "NONE", sortMode: "NONE", tagFilter: filterTag(params.FilterRepo), type: "GitParameterDefinition",useRepository: "${config.remoteRepoUrl}"),
                                     booleanParam(defaultValue: false, name: 'Release')
                             ]
 
