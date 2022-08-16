@@ -1,7 +1,7 @@
 def call(Map config = [:]){
     def extraVars = [tier: config.tier, project_name: config.projectName]
 
-    if (config.powerUser){
+    if (config.powerUser == true){
         extraVars = [tier: config.tier, project_name: config.projectName,iam_prefix: "power-user"]
     }
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
