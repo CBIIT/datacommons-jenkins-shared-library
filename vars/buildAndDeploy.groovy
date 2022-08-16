@@ -27,7 +27,7 @@ def call(Map config=[:]){
                     println env.BE_VERSION
                 }
             }
-            runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.deployPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
+            runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.deployPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}", extraVars: "${config.extraVars}"
         }
         if (params["Release"] == true){
             writeDeployment(
