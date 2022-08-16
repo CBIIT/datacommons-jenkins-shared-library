@@ -1,11 +1,9 @@
 def call(Map config = [:]){
     def extraVars = [tier: config.tier, project_name: config.projectName]
 
-    if (config.extraVars){
-        extraVars = extraVars.plus(config.extraVars[0])
+    if (config.powerUser){
+        extraVars = [tier: config.tier, project_name: config.projectName,iam_prefix: "power-user"]
     }
-    println "Here are the vars"
-    println extraVars
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
         ansiblePlaybook(
                 playbook: config.playbook,
