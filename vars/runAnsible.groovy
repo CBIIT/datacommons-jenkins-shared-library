@@ -3,7 +3,7 @@ def call(Map config = [:]){
 
     if (config.extraVars){
         config.extraVars.each{
-            extraVars[it.key] = it.value
+            println "Hello $it"
         }
     }
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
