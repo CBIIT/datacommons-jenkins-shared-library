@@ -1,7 +1,7 @@
 def call(Map config){
     def extraVars = [tier: config.tier, project_name: config.projectName]
 
-    if (config.extraVars.size() != 0){
+    if (config.extraVars){
         extraVars = extraVars + config.extraVars
     }
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
