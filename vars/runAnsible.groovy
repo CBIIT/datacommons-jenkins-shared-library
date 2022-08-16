@@ -2,7 +2,7 @@ def call(Map config = [:]){
     def extraVars = [tier: config.tier, project_name: config.projectName]
 
     if (config.extraVars){
-        println  extraVars.plus(extraVars)
+        extraVars.plus(extraVars)
     }
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
         ansiblePlaybook(
