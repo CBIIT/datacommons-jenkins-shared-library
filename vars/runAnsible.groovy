@@ -1,6 +1,6 @@
 def call(Map config){
-    println "Hello ${config.extraAnsibleVar}"
-    println "Hello ${config.extraAnsibleVar[0]}"
+    println "Hello ${config.extraAnsibleVars}"
+    println "Hello ${config.extraAnsibleVars[0]}"
     def extraVars = [tier: config.tier, project_name: config.projectName]
 
     if (config.extraAnsibleVars){
