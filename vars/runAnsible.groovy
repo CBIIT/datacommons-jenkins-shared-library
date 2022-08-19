@@ -1,7 +1,8 @@
 def call(Map config = [:]){
+    def extraAnsibleVars = [:]
     def extraVars = [tier: config.tier, project_name: config.projectName]
-    if (config.extraAnsibleVars){
-        extraVars = extraVars.plus(extraAnsibleVars)
+    if (!config.extraAnsibleVars.empty){
+        extraVars = extraVars.plus(config.extraAnsibleVars)
         config.extraAnsibleVars.each{
             println "looping" + "${it}"
         }
