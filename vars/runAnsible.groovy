@@ -3,7 +3,7 @@ def call(Map config = [:]){
     if (config.extraAnsibleVars){
         extraVars = extraVars.plus(extraAnsibleVars)
         config.extraAnsibleVars.each{
-            println "looping" + it
+            println "looping" + "${it}"
         }
     }
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
