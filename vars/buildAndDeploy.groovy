@@ -10,6 +10,7 @@ def call(Map config=[:]){
         if (config.includeFrontendRepo == true){
             additionalParameters values: [
                     gitParameter(branch: "", branchFilter: "origin/(.*)", defaultValue: "main", description: "Select Branch or Tag to build", name: "FrontendTag", quickFilterEnabled: false, selectedValue: "NONE", sortMode: "NONE", tagFilter: "*", type: "GitParameterDefinition",useRepository: config.frontendRepoUrl)
+                    booleanParam(defaultValue: true, name: 'AuthEnabled')
             ]
             gitCheckout checkoutDirectory: config.frontendCheckoutDirectory, gitUrl: config.frontendRepoUrl, gitBranch: params["FrontendTag"]
         }
@@ -24,7 +25,6 @@ def call(Map config=[:]){
                 env."${config.appVersionName}" = version
                 if (config.service == "frontend"){
                     env.BE_VERSION  = getVersion(service: "backend",deploymentFile: config.deploymentFile)
-                    println env.BE_VERSION
                 }
             }
             runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.deployPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}", extraVars: "${config.extraVars}"

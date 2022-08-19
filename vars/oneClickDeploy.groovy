@@ -1,10 +1,10 @@
 def call(Map config=[:]) {
     buildStage(label: config.label) {
-        buildProperties(
+        oneClickProperties(
                 name: config.parameterName,
                 remoteRepoUrl: config.codeRepoUrl
         )
-        gitCheckout checkoutDirectory: config.checkoutDirectory, gitUrl: config.codeRepoUrl, gitBranch: params[config.parameterName]
+        gitCheckout checkoutDirectory: config.checkoutDirectory, gitUrl: config.codeRepoUrl, gitBranch: params[config.Environmeeent]
         def deployment = readYaml file: config.deploymentFile
         def jobPath = "One-Click-Deployment/Bento/_jobs/Deploy"
         deployment.services.each {
