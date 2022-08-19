@@ -1,4 +1,4 @@
-def call(Map config = [:]){
+def call(Map config){
     println config.extraAnsibleVars
     config.extraAnsibleVars.each{
         println "looping" + "${it}"
