@@ -27,7 +27,7 @@ def call(Map config=[:]){
                     env.BE_VERSION  = getVersion(service: "backend",deploymentFile: config.deploymentFile)
                 }
             }
-            runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.deployPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}", extraVars: "${config.extraVars}"
+            runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.deployPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}", extraAnsibleVars: "${config.extraAnsibleVars}"
         }
         if (params["UpdateDeploymentVersion"] == true){
             writeDeployment(

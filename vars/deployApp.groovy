@@ -10,7 +10,7 @@ def call(Map config=[:]){
             }
         }
         stage("deploy"){
-            runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.playbook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}", powerUser: "${config.powerUser}"
+            runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.playbook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}", extraAnsibleVars: "${config.extraAnsibleVars}"
         }
         stage("send slack"){
             notify secretPath: "${config.slackSecretPath}", secretName: "${config.slackSecretName}"
