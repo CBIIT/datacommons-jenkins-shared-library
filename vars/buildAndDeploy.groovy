@@ -29,7 +29,7 @@ def call(Map config=[:]){
             }
             runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.deployPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}", extraVars: "${config.extraVars}"
         }
-        if (params["Release"] == true){
+        if (params["isFinalBuild"] == true){
             writeDeployment(
                     version: env[config.appVersionName],
                     image: env[config.appVersionName],

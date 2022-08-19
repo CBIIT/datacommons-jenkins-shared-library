@@ -15,7 +15,7 @@ def call(Map config){
                                     [$class: 'ChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false, name: 'ProjectName', randomName: 'choice-parameter-5032484505435771', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: true, script: 'return ["bento"]'], script: [classpath: [], sandbox: true, script: 'return ["bento","cds","gmb","ctdc","c3dc"]']]],
                                     //[$class: 'ChoiceParameter', choiceType: 'PT_RADIO', filterLength: 1, filterable: false, name: 'FilterRepo', randomName: 'choice-parameter-5032484505435771', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: true, script: 'return ["Branch"]'], script: [classpath: [], sandbox: true, script: 'return ["Branch","Tag"]']]],
                                     gitParameter(branch: "", branchFilter: "origin/(.*)", defaultValue: "${defaultBranch}", description: "Filter Repo", name: "${config.name}", quickFilterEnabled: false, selectedValue: "NONE", sortMode: "NONE", tagFilter: "origin/release/.*", type: "GitParameterDefinition",useRepository: "${config.remoteRepoUrl}"),
-                                    booleanParam(defaultValue: false, name: 'Release')
+                                    booleanParam(defaultValue: false, name: 'isFinalBuild')
                             ]
 
                     )
