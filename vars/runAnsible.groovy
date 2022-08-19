@@ -1,14 +1,15 @@
 def call(Map config){
-    println  config.extraAnsibleVars
+
 
     def extraVars = [tier: config.tier, project_name: config.projectName]
 
     if (config.extraAnsibleVars){
-        config.extraAnsibleVars.each {
-            println it
+        def passedVars = config.extraAnsibleVars.tokenize(",").collectEntries {
+            it.tokenize(":").with {
+                [(it[0]):it[1]]
+            }
         }
-
-
+        println passedVars
     }
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
         ansiblePlaybook(
