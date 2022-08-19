@@ -2,8 +2,8 @@ def call(Map config){
 
     def extraVars = [tier: config.tier, project_name: config.projectName]
     if (config.extraAnsibleVars){
-        println("Hello",config.extraAnsibleVars)
-        println("Hello",config.extraAnsibleVars[0])
+        println "Hello ${config.extraAnsibleVar}"
+        println "Hello,${config.extraAnsibleVar[0]})
 
     }
     println "Can't read config"
