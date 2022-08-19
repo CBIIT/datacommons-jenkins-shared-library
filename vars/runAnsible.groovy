@@ -4,7 +4,8 @@ def call(Map config){
     def extraVars = [tier: config.tier, project_name: config.projectName]
 
     if (config.extraAnsibleVars){
-        println config.extraAnsibleVars
+        println extraVars
+        extraVars = extraVars.plus(config.extraAnsibleVars)
 
     }
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
