@@ -1,8 +1,9 @@
 def call(Map config){
-    config.extraAnsibleVars.getClass()
+
     def extraVars = [tier: config.tier, project_name: config.projectName]
     if (config.extraAnsibleVars){
-        extraVars = extraVars + config.extraAnsibleVars
+        println("Hello",config.extraAnsibleVars)
+        println("Hello",config.extraAnsibleVars[0])
 
     }
     println "Can't read config"
