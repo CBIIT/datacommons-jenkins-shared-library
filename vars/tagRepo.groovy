@@ -12,7 +12,7 @@ def call(Map config) {
         echo "Applying tag ${config.gitTag} to ${config.gitUrl}"
         git config user.email "jenkins@bento-tools.org"
         git config user.name "Bento Jenkins"
-        git tag --no-sign -a "${config.gitTag}-${BUILD_NUMBER}" -m "Jenkins tag: ${config.gitTag}-${BUILD_NUMBER}"
+        git tag --no-sign -a "${config.gitTag}.${BUILD_NUMBER}" -m "Jenkins tag: ${config.gitTag}.${BUILD_NUMBER}"
         git push "https://${GIT_TOKEN}:x-oauth-basic@${GIT_URL}" --tags
 """
 }
