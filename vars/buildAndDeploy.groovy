@@ -1,5 +1,11 @@
 def call(Map config=[:]){
-    buildStage(label: "${config.label}") {
+    buildStage(
+            label: "${config.label}",
+            useDockerAgent: "${config.useDockerAgent}",
+            agentImage: "${config.agentImage}",
+            dockerRegistryUrl: "${config.dockerRegistryUrl}",
+            registryCredentialsId: "${config.registryCredentialsId}"
+    ) {
         buildProperties(
                 name: config.parameterName,
                 remoteRepoUrl: config.codeRepoUrl,
