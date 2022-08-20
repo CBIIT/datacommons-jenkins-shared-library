@@ -1,10 +1,12 @@
 def call(Map config=[:],Closure body) {
-    if (config.useDockerAgent==true){
+    if (config.useDockerAgent){
+        println "-----I am here -----"
         node("${config.label}") {
             ansiColor('xterm') {
                 timestamps {
                     docker.withRegistry( config.dockerRegistryUrl, config.registryCredentialsId) {
                         def buildAgent = docker.image(config.agentImage)
+                        buildAgent.pull()
                         buildAgent.inside("--net=host -u root"){
                             body()
                         }
