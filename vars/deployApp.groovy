@@ -6,7 +6,6 @@ def call(Map config=[:]){
         setEnvValues(){
             if (config.service == "frontend"){
                 env.BE_VERSION  = getVersion(service: "backend",deploymentFile: config.deploymentFile)
-                println env.BE_VERSION
             }
         }
         stage("deploy"){

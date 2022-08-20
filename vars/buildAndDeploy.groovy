@@ -27,7 +27,7 @@ def call(Map config=[:]){
         }
         stage("deploy"){
             setEnvValues(){
-                def version = params["${config.parameterName}"] + "-" + "${BUILD_NUMBER}"
+                def version = params["${config.parameterName}"] + "." + "${BUILD_NUMBER}"
                 env."${config.appVersionName}" = version
                 if (config.service == "frontend"){
                     env.BE_VERSION  = getVersion(service: "backend",deploymentFile: config.deploymentFile)
