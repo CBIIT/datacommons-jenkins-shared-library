@@ -7,7 +7,7 @@ def call(Map config) {
 //        }
 //    }
     stage("Checkout"){
-        step {
+        steps {
             if ("${config.checkoutDirectory}" == "workspace"){
                 checkout([
                         $class: 'GitSCM', branches: [[name: "${config.gitBranch}"]],
