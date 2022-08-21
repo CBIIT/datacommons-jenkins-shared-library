@@ -1,5 +1,11 @@
 def call(Map config=[:]){
-    deployStage(label: "${config.label}") {
+    deployStage(
+            label: "${config.label}",
+            useDockerAgent: "${config.useDockerAgent}",
+            agentImage: "${config.agentImage}",
+            dockerRegistryUrl: "${config.dockerRegistryUrl}",
+            registryCredentialsId: "${config.registryCredentialsId}"
+    ) {
         deployProperties parameterName: "${config.parameterName}", repoName: "${config.repoName}"
         gitCheckout checkoutDirectory: "icdc-devops", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
         gitCheckout checkoutDirectory: config.deploymentCheckoutDirectory, gitUrl: config.deploymentRepoUrl, gitBranch: params["Environment"]
