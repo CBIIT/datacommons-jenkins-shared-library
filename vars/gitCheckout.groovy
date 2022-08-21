@@ -23,7 +23,7 @@ def call(Map config) {
                         doGenerateSubmoduleConfigurations: false,
                         extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "${config.checkoutDirectory}"]],
                         submoduleCfg: [],
-                        userRemoteConfigs: [[url: "${config.gitBranch}"]]
+                        userRemoteConfigs: [[url: "${config.gitUrl}"]]
                 ])
             }
         }
