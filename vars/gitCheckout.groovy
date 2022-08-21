@@ -7,6 +7,7 @@ def call(Map config) {
 //        }
 //    }
     stage("Checkout"){
+        script{
             if ("${config.checkoutDirectory}" == "workspace"){
                 checkout([
                         $class: 'GitSCM', branches: [[name: "${config.gitBranch}"]],
@@ -25,6 +26,7 @@ def call(Map config) {
                         userRemoteConfigs: [[url: "${config.gitBranch}"]]
                 ])
             }
+        }
     }
 }
 
