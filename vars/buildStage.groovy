@@ -1,6 +1,5 @@
 def call(Map config=[:],Closure body) {
     if (config.useDockerAgent == true){
-        println
         node("${config.label}") {
             ansiColor('xterm') {
                 timestamps {
@@ -15,7 +14,6 @@ def call(Map config=[:],Closure body) {
             }
         }
     }else{
-        println "No agent"
         node("${config.label}") {
             ansiColor('xterm') {
                 timestamps {
