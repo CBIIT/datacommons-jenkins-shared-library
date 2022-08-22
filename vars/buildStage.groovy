@@ -1,7 +1,6 @@
 def call(Map config=[:],Closure body) {
-    println "Hello"
-    println config.useDockerAgent
-    if (config.useDockerAgent){
+    if (config.useDockerAgent == true){
+        println
         node("${config.label}") {
             ansiColor('xterm') {
                 timestamps {
