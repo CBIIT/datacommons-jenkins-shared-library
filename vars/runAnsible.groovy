@@ -10,6 +10,8 @@ def call(Map config){
             }
         }
         extraVars = extraVars.plus(passedVars)
+    }else{
+        extraVars = extraVars
     }
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
         ansiblePlaybook(
