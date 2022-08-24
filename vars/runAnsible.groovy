@@ -8,6 +8,7 @@ def call(Map config){
                 [(it[0]):it[1]]
             }
         }
+        println passedVars
         extraVars = extraVars.plus(passedVars)
     }
     println extraVars
