@@ -5,7 +5,7 @@ def call(Map config){
     if (config.extraAnsibleVars != null){
         def passedVars = config.extraAnsibleVars.tokenize(",").collectEntries {
             it.tokenize(":").with {
-                if(it[0] == null || it [1] == null){
+                if(it == null){
                     return
                 }
                 [(it[0]):it[1]]
