@@ -8,8 +8,8 @@ def call(Map config){
                 [(it[0]):it[1]]
             }
         }
-
-        extraVars = extraVars.plus(passedVars.removeAll{ it.value == null })
+        passedVars = passedVars.removeAll{ it.value == null }
+        extraVars = extraVars.plus(passedVars)
     }
     println extraVars
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
