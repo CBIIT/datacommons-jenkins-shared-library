@@ -10,7 +10,7 @@ def call(Map config){
         }
         passedVars.each{
             println "In ansiblee"
-            println it
+            println it.split("=")
         }
         extraVars = extraVars.plus(passedVars)
     }
