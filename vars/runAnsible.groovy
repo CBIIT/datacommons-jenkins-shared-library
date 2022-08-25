@@ -8,7 +8,10 @@ def call(Map config){
                 [(it[0]):it[1]]
             }
         }
-        passedVars = passedVars.removeAll{ it.value == null }
+        passedVars.each{
+            println "In ansiblee"
+            println it
+        }
         extraVars = extraVars.plus(passedVars)
     }
     println extraVars
