@@ -5,17 +5,17 @@ def call(Map config){
     def defaultVars = [tier: config.tier, project_name: config.projectName]
 
     if (config.extraAnsibleVars){
-        extraVars = defaultVars + config.extraAnsibleVars
+        println config.extraAnsibleVars
     }else{
         extraVars = defaultVars
     }
 
-//    if (params.AuthEnabled){
-//        extraVars = [tier: config.tier, project_name: config.projectName, auth_enabled: params.AuthEnabled ]
-//    }else {
-//        extraVars = extraVars
-//    }
-//    if (config.extraAnsibleVars){
+    if (params.AuthEnabled){
+        extraVars = [tier: config.tier, project_name: config.projectName, auth_enabled: params.AuthEnabled ]
+    }else {
+        extraVars = extraVars
+    }
+    if (config.extraAnsibleVars){
 //        def passedVars = config.extraAnsibleVars.tokenize(",").collectEntries {
 //            it.tokenize(":").with {
 //                [(it[0]):it[1]]
