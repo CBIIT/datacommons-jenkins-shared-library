@@ -4,7 +4,7 @@ def call(Map config){
     def extraVars = [:]
     def defaultVars = [tier: config.tier, project_name: config.projectName]
 
-    if (config.extraAnsibleVars){
+    if (env["extraAnsibleVars"]){
         data = readJSON env["extraAnsibleVars"]
         println data
     }else{
