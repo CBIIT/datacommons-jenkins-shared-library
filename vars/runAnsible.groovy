@@ -1,12 +1,13 @@
 
 def call(Map config){
+
     def extraVars = [:]
     def defaultVars = [tier: config.tier, project_name: config.projectName]
 
     if (config.extraAnsibleVars){
-        //extraVars = defaultVars.plus(config.extraAnsibleVars)
-        extraVars = addMap(defaultVars,config.extraAnsibleVars)
-        println extraVars
+        config.extraAnsibleVars.each {
+            extraVars[it.key]=it.value
+        }
     }else{
         extraVars = defaultVars
     }

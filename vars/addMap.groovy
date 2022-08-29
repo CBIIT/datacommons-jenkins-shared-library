@@ -10,7 +10,3 @@ def merge(Map lhs, Map rhs) {
         return map
     }
 }
-
-def call(Map defaultMap,additionalMap){
-    return merge(defaultMap,additionalMap)
-}
