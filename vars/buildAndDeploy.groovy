@@ -26,6 +26,9 @@ def call(Map config=[:]){
             println "In build"
             println config.extraAnsibleVars
             if(config.extraAnsibleVars != null) {
+                env.extraAnsibleVars = "${config.extraAnsibleVars}"
+                println "In ansible"
+                println env.extraAnsibleVars
                 runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.buildPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}", extraAnsibleVars: "${config.extraAnsibleVars}"
             } else {
                 runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.buildPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
