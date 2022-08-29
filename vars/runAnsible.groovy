@@ -1,12 +1,14 @@
 def call(Map config){
 
     def extraVars = [tier: config.tier, project_name: config.projectName]
+    println config.extraAnsibleVars
 
-//    if (params.AuthEnabled != null){
+//    if (params.AuthEnabled){
 //        extraVars = [tier: config.tier, project_name: config.projectName, auth_enabled: params.AuthEnabled ]
+//    }else {
+//        extraVars = extraVars
 //    }
-
-//    if (config.extraAnsibleVars != null){
+//    if (config.extraAnsibleVars){
 //        def passedVars = config.extraAnsibleVars.tokenize(",").collectEntries {
 //            it.tokenize(":").with {
 //                [(it[0]):it[1]]
