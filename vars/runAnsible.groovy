@@ -6,8 +6,7 @@ def call(Map config){
 
     if (config.extraAnsibleVars){
         config.extraAnsibleVars.each { entry ->
-            println entry
-            println entry.key
+            println "Hello entry ${entry}"
         }
     }else{
         extraVars = defaultVars
