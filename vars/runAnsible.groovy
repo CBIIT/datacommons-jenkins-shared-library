@@ -13,7 +13,7 @@ def call(Map config){
     if (params.AuthEnabled){
         extraVars = [tier: config.tier, project_name: config.projectName, auth_enabled: params.AuthEnabled ]
     }else {
-        extraVars = extraVars
+        extraVars = defaultVars
     }
 //    if (config.extraAnsibleVars){
 //        def passedVars = config.extraAnsibleVars.tokenize(",").collectEntries {
