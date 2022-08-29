@@ -41,6 +41,7 @@ def call(Map config=[:]){
             }
             if(config.extraAnsibleVars != null){
                 env.extraAnsibleVars = config.extraAnsibleVars
+                println env.extraAnsibleVars
                 runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.deployPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
             }else {
                 runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.deployPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
