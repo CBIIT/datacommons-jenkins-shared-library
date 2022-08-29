@@ -5,9 +5,7 @@ def call(Map config){
     def defaultVars = [tier: config.tier, project_name: config.projectName]
 
     if (config.extraAnsibleVars){
-        config.extraAnsibleVars.each { entry ->
-            println "Hello entry ${entry}"
-        }
+        extraVars = defaultVars + config.extraAnsibleVars
     }else{
         extraVars = defaultVars
     }
