@@ -5,7 +5,7 @@ def call(Map config){
 
     if (config.extraAnsibleVars){
         //extraVars = defaultVars.plus(config.extraAnsibleVars)
-        extraVars = addMap(defaultVar,config.extraAnsibleVars)
+        extraVars = addMap(defaultVars,config.extraAnsibleVars)
         println extraVars
     }else{
         extraVars = defaultVars
