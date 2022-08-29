@@ -3,16 +3,8 @@ def call(Map config){
 
     def extraVars = [:]
     def defaultVars = [tier: config.tier, project_name: config.projectName]
-    data = readJSON env["extraAnsibleVars"]
-    println data
-    if ("${env.extraAnsibleVars}"){
-        data = readJSON env["extraAnsibleVars"]
-        println data
-    }else{
-        extraVars = defaultVars
-    }
 
-    if (params.AuthEnabled){
+    if (params.AuthEnabled == true || params.AuthEnabled == false){
         extraVars = [tier: config.tier, project_name: config.projectName, auth_enabled: params.AuthEnabled ]
     }else {
         extraVars = defaultVars
