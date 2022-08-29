@@ -1,7 +1,14 @@
-def call(Map config){
 
-    def extraVars = [tier: config.tier, project_name: config.projectName]
-    println config.extraAnsibleVars
+def call(Map config){
+    def extraVars = [:]
+    def defaultVars = [tier: config.tier, project_name: config.projectName]
+
+    if (config.extraAnsibleVars){
+        extraVars = addMap(defaultVars,extraAnsibleVars)
+        println extraVars
+    }else{
+        extraVars = defaultVars
+    }
 
 //    if (params.AuthEnabled){
 //        extraVars = [tier: config.tier, project_name: config.projectName, auth_enabled: params.AuthEnabled ]
