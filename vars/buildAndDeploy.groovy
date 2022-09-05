@@ -1,6 +1,6 @@
 import groovy.json.JsonSlurper
 def call(Map config=[:]){
-    def parsedVars = [:]
+    def parsedVars = ""
     if (config.extraAnsibleVars != null){
         JsonSlurper slurper = new JsonSlurper().parseText(config.extraAnsibleVars)
         parsedVars = slurper.collect{"${it.key}=${it.value}"}.join('\n')
