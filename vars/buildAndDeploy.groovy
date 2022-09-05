@@ -28,8 +28,6 @@ def call(Map config=[:]){
         gitCheckout checkoutDirectory: "icdc-devops", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
         setEnvValues(){}
         stage("build"){
-            println "In build"
-            println parsedVars
             if(parsedVars) {
                 runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.buildPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}", extraAnsibleVars: parsedVars
             } else {
@@ -44,11 +42,8 @@ def call(Map config=[:]){
                     env.BE_VERSION  = getVersion(service: "backend",deploymentFile: config.deploymentFile)
                 }
             }
-            if(config.extraAnsibleVars != null){
-                env.extraAnsibleVars = "${config.extraAnsibleVars}"
-                println "In ansible"
-                println env.extraAnsibleVars
-                runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.deployPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
+            if(parsedVars){
+                runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.deployPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}",extraAnsibleVars: parsedVars
             }else {
                 runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.deployPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
             }
