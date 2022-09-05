@@ -3,7 +3,7 @@ def call(Map config=[:]){
     def parsedVars = [:]
     if (config.extraAnsibleVars != null){
         JsonSlurper slurper = new JsonSlurper()
-        parsedVars = slurper.parseText(jsonString)
+        parsedVars = slurper.parseText(config.extraAnsibleVars)
     }
     buildStage(
             label: "${config.label}",
