@@ -1,4 +1,10 @@
+import groovy.json.JsonSlurper
 def call(Map config=[:]){
+    def parsedVars = [:]
+    if (config.extraAnsibleVars != null){
+        JsonSlurper slurper = new JsonSlurper()
+        parsedVars = slurper.parseText(jsonString)
+    }
     buildStage(
             label: "${config.label}",
             useDockerAgent: "${config.useDockerAgent}",
@@ -24,10 +30,9 @@ def call(Map config=[:]){
         setEnvValues(){}
         stage("build"){
             println "In build"
-            println config.extraAnsibleVars
-            env.extraAnsibleVars = "${config.extraAnsibleVars}"
-            if(config.extraAnsibleVars != null) {
-                runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.buildPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
+            println parsedVars
+            if(parsedVars) {
+                runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.buildPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}", extraAnsibleVars: parsedVars
             } else {
                 runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.buildPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
             }
