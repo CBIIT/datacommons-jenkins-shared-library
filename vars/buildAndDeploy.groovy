@@ -3,7 +3,6 @@ def call(Map config=[:]){
     def parsedVars = [:]
     if (config.extraAnsibleVars != null){
         parsedVars = config.extraAnsibleVars
-        println parsedVars
     }
     buildStage(
             label: "${config.label}",
@@ -32,7 +31,7 @@ def call(Map config=[:]){
             println "In build"
             println parsedVars
             if(parsedVars) {
-                runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.buildPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
+                runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.buildPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}", extraAnsibleVars: parsedVars
             } else {
                 runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.buildPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
             }

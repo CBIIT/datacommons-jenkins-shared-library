@@ -18,7 +18,7 @@ def call(Map config){
 //            }
 //        }
 
-//        extraVars = extraVars.plus(passedVars)
+        extraVars = extraVars.plus(passedVars)
     }
     println extraVars
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
