@@ -1,4 +1,9 @@
 def call(Map config=[:]){
+
+    def parsedVars = [:]
+    if (config.extraAnsibleVars != null){
+        parsedVars = config.extraAnsibleVars
+    }
     deployStage(
             label: "${config.label}",
             useDockerAgent: "${config.useDockerAgent}",
@@ -15,7 +20,11 @@ def call(Map config=[:]){
             }
         }
         stage("deploy"){
-            runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.playbook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}", extraAnsibleVars: "${config.extraAnsibleVars}"
+            if(parsedVars){
+                runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.playbook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}", extraAnsibleVars: parsedVars
+            }else{
+                runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.playbook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
+            }
         }
         stage("send slack"){
             notify secretPath: "${config.slackSecretPath}", secretName: "${config.slackSecretName}"
