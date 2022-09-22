@@ -12,12 +12,6 @@ def call(Map config){
 
     if (config.extraAnsibleVars){
         println config.extraAnsibleVars
-//        def passedVars = config.extraAnsibleVars.tokenize(",").collectEntries {
-//            it.tokenize(":").with {
-//                [(it[0]):it[1]]
-//            }
-//        }
-
         extraVars = extraVars.plus(config.extraAnsibleVars)
     }
     println extraVars
