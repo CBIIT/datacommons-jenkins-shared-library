@@ -7,6 +7,7 @@ def call(Map config){
                 fallback: "Bento Jenkins Build",
                 footer: "bento devops",
                 text: "Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} :beer:\n Details at: ${env.BUILD_URL}console",
+                deploymentFile: config.deploymentFile
         ])
 
 }

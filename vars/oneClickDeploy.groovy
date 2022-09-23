@@ -14,7 +14,7 @@ def call(Map config=[:]) {
             )
         }
         stage("send slack"){
-            notifySummary secretPath: "${config.slackSecretPath}", secretName: "${config.slackSecretName}"
+            notifySummary secretPath: "${config.slackSecretPath}", secretName: "${config.slackSecretName}", deploymentFile: config.deploymentFile
         }
 
     }
