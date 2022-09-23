@@ -5,7 +5,7 @@ def call(Map config=[:]) {
         def deployment = readYaml file: config.deploymentFile
         deployment.services.each {
             buildJob(
-                    jobName:  config.jobPath + "${it.key}".capitalize(),
+                    jobName:  config.jobPath + "Deploy" + "${it.key}".capitalize(),
                     parameters:[
                             string(name: 'Environment', value: params["Environment"]),
                             string(name: 'ProjectName', value: deployment.project),
