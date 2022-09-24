@@ -16,8 +16,8 @@ def call(Map config) {
     def attachments = [[title: config.title,text: config.text,fallback: config.fallbackMessage,footer: config.footerText,ts: epoch,mrkdwn_in: ["footer", "title"],color: "${BUILD_COLORS[currentBuild.currentResult]}"]]
 //    icon_emoji: config.emojiIcon,
     def slackPayload = JsonOutput.toJson([
-            blocks: blocks,
-            attachments: attachments
+            blocks: blocks
+//            attachments: attachments
     ])
     try {
         sh "curl -X POST -H 'Content-type: application/json' --data '${slackPayload}'  '${config.slackUrl}'"
