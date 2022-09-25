@@ -3,7 +3,7 @@ import groovy.json.JsonOutput
 def call(Map config) {
     def deployment = readYaml file: config.deploymentFile
     def header = [type: "header",text: [type: "plain_text",text: "One Click Deployment Summary", emoji: true]]
-    def project =  [type: "section",fields:[[type: "mrkdwn",text: "*${config.projectName}*"],[type: "mrkdwn",text: "*${config.tier}"]]]
+    def project =  [type: "section",fields:[[type: "mrkdwn",text: "*${config.projectName}*"],[type: "mrkdwn",text: "*${config.tier}*"]]]
     def title = [type: "section",fields:[[type: "mrkdwn",text: "*Microservice*"],[type: "mrkdwn",text: "*Version*"]]]
     def services = []
     deployment.services.each {

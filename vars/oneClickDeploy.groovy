@@ -20,7 +20,7 @@ def call(Map config=[:]) {
                     secretPath: "${config.slackSecretPath}",
                     secretName: "${config.slackSecretName}",
                     deploymentFile: config.deploymentFile,
-                    projectName: params["projectName"],
+                    projectName: params["ProjectName"],
                     tier: params["Environment"]
             )
         }
