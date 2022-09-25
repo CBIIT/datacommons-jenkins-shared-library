@@ -1,3 +1,5 @@
+import org.apache.tools.ant.types.Environment
+
 def call(Map config=[:]) {
     buildStage(label: config.label) {
         oneClickProperties()
@@ -14,7 +16,13 @@ def call(Map config=[:]) {
             )
         }
         stage("send slack"){
-            notifySummary secretPath: "${config.slackSecretPath}", secretName: "${config.slackSecretName}", deploymentFile: config.deploymentFile
+            notifySummary(
+                    secretPath: "${config.slackSecretPath}",
+                    secretName: "${config.slackSecretName}",
+                    deploymentFile: config.deploymentFile,
+                    projectName: params["projectName"],
+                    tier: params["Environment"]
+            )
         }
 
     }
