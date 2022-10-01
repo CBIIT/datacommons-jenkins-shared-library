@@ -1,4 +1,5 @@
-def call(Map config=[:],Closure body) {
+def call(Map config,Closure body) {
+    println(config.useDockerAgent)
     if (config.useDockerAgent == true){
         node("${config.label}") {
             ansiColor('xterm') {
