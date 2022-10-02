@@ -4,10 +4,9 @@ def call(Map config=[:],Closure body) {
             ansiColor('xterm') {
                 timestamps {
                     docker.withRegistry( config.dockerRegistryUrl, config.registryCredentialsId) {
-                        def buildAgent = docker.image(config.agentImage)
+                        def buildAgent = docker.image(config.agentImage,reuseNode: true)
                         buildAgent.pull()
                         buildAgent.inside("--net=host -u root -v /var/run/docker.sock:/var/run/docker.sock"){
-                            println("INSIDE DOCKER")
                             body()
                         }
                     }
