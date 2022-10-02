@@ -11,11 +11,8 @@ def call(Map config=[:]){
         gitCheckout checkoutDirectory: "icdc-devops", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
         gitCheckout checkoutDirectory: config.modelCheckoutDirectory, gitUrl: config.modelRepoUrl, gitBranch: params["ModelTag"]
         gitCheckout checkoutDirectory: "workspace", gitUrl: "https://github.com/CBIIT/icdc-dataloader",  gitBranch: params["LoaderTag"]
-
         sh "git submodule update --init"
-
-        stage("loader"){
-                runAnsible(
+        runAnsible(
                         playbook: "${WORKSPACE}/icdc-devops/ansible/${config.playbook}",
                         inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}",
                         tier: "${config.tier}",
@@ -28,7 +25,6 @@ def call(Map config=[:]){
                                 split_transactions: config.split_transactions
                         ]
                 )
-        }
         notify secretPath: "${config.slackSecretPath}", secretName: "${config.slackSecretName}"
     }
 }
