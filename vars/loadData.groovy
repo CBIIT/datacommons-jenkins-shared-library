@@ -10,9 +10,9 @@ def call(Map config=[:]){
         dataLoaderProperties  modelRepoUrl: "${config.modelRepoUrl}"
         gitCheckout checkoutDirectory: "icdc-devops", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
         gitCheckout checkoutDirectory: config.modelCheckoutDirectory, gitUrl: config.modelRepoUrl, gitBranch: params["ModelTag"]
-        gitCheckout checkoutDirectory: "icdc-dataloader", gitUrl: "https://github.com/CBIIT/icdc-dataloader",  gitBranch: params["LoaderTag"]
+        gitCheckout checkoutDirectory: "workspace", gitUrl: "https://github.com/CBIIT/icdc-dataloader",  gitBranch: params["LoaderTag"]
 
-        sh "cd icdc-dataloader && git submodule update --init"
+        sh "git submodule update --init"
 
         stage("loader"){
                 runAnsible(
