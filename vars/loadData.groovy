@@ -1,9 +1,5 @@
 def call(Map config=[:]){
 
-    def parsedVars = [:]
-    if (config.extraAnsibleVars != null){
-        parsedVars = config.extraAnsibleVars
-    }
     buildStage(
             label: "${config.label}",
             useDockerAgent: "${config.useDockerAgent}",
@@ -19,32 +15,19 @@ def call(Map config=[:]){
         sh "cd icdc-dataloader && git submodule update --init"
 
         stage("loader"){
-            if(parsedVars){
                 runAnsible(
                         playbook: "${WORKSPACE}/icdc-devops/ansible/${config.playbook}",
                         inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}",
                         tier: "${config.tier}",
                         projectName: "${config.projectName}",
-                        s3_folder: config.s3_folder,
-                        wipe_db: config.wipe_db,
-                        cheat_mode: config.cheat_mode,
-                        data_bucket: config.data_bucket,
-                        split_transactions: config.split_transactions,
-                        extraAnsibleVars: parsedVars
+                        extraAnsibleVars: [
+                                s3_folder: config.s3_folder,
+                                wipe_db: config.wipe_db,
+                                cheat_mode: config.cheat_mode,
+                                data_bucket: config.data_bucket,
+                                split_transactions: config.split_transactions
+                        ]
                 )
-            }else{
-                runAnsible (
-                        playbook: "${WORKSPACE}/icdc-devops/ansible/${config.playbook}",
-                        inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}",
-                        tier: "${config.tier}",
-                        projectName: "${config.projectName}"   ,
-                        s3_folder: config.s3_folder,
-                        wipe_db: config.wipe_db,
-                        cheat_mode: config.cheat_mode,
-                        data_bucket: config.data_bucket,
-                        split_transactions: config.split_transactions
-                )
-            }
         }
         notify secretPath: "${config.slackSecretPath}", secretName: "${config.slackSecretName}"
     }
