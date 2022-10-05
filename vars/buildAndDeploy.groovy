@@ -26,6 +26,11 @@ def call(Map config=[:]){
             gitCheckout checkoutDirectory: config.frontendCheckoutDirectory, gitUrl: config.frontendRepoUrl, gitBranch: params["FrontendTag"]
         }
         gitCheckout checkoutDirectory: "icdc-devops", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
+
+        //update submodule for bento - experimental only
+        if( params["ProjectName"] == "bento"){
+            sh "git submodule update --init"
+        }
         setEnvValues(){}
         stage("build"){
             if(parsedVars) {
