@@ -7,25 +7,16 @@ def call(Map config) {
                         doGenerateSubmoduleConfigurations: false,
                         extensions: [],
                         submoduleCfg: [],
-                        recursiveSubmodules: true,
                         userRemoteConfigs: [[url: "${config.gitUrl}"]]
                 ])
             }else if(config.checkoutSubmodule == "true"){
-                checkout([
-                        $class: 'GitSCM', branches: [[name: "${config.gitBranch}"]],
-                        doGenerateSubmoduleConfigurations: false,
-                        extensions: [],
-                        submoduleCfg: [],
-                        recursiveSubmodules: true,
-                        userRemoteConfigs: [[url: "${config.gitUrl}", credentialsId: "git-ssh-cred"]]
-                ])
+                git credentialsId: 'git-ssh-cred', url: config.gitUrl
             }else {
                 checkout([
                         $class: 'GitSCM', branches: [[name: "${config.gitBranch}"]],
                         doGenerateSubmoduleConfigurations: false,
                         extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "${config.checkoutDirectory}"]],
                         submoduleCfg: [],
-                        recursiveSubmodules: true,
                         userRemoteConfigs: [[url: "${config.gitUrl}"]]
                 ])
             }
