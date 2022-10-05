@@ -7,7 +7,7 @@ def call(Map config=[:]){
             dockerRegistryUrl: "${config.dockerRegistryUrl}",
             registryCredentialsId: "${config.registryCredentialsId}"
     ) {
-        dataLoaderProperties  modelRepoUrl: "${config.modelRepoUrl}"
+        opensearchLoaderProperties  modelRepoUrl: "${config.modelRepoUrl}"
         gitCheckout checkoutDirectory: "icdc-devops", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
         gitCheckout checkoutDirectory: "${params.ProjectName}-model", gitUrl: config.modelRepoUrl, gitBranch: params["ModelTag"]
         gitCheckout checkoutDirectory: "workspace", gitUrl: "https://github.com/CBIIT/icdc-dataloader",  gitBranch: params["LoaderTag"]
