@@ -16,7 +16,7 @@ def call(Map config=[:]){
                 remoteRepoUrl: config.codeRepoUrl,
                 deploymentRepoUrl: config.deploymentRepoUrl
         )
-        gitCheckout checkoutDirectory: config.checkoutDirectory, gitUrl: config.codeRepoUrl, gitBranch: params[config.parameterName],checkoutSubmodule: config.checkoutSubmodule
+        gitCheckout checkoutDirectory: config.checkoutDirectory, gitUrl: config.codeRepoUrl, gitBranch: params[config.parameterName]
         gitCheckout checkoutDirectory: config.deploymentCheckoutDirectory, gitUrl: config.deploymentRepoUrl, gitBranch: params["Environment"]
         if (config.includeFrontendRepo == true){
             additionalParameters values: [
@@ -28,7 +28,7 @@ def call(Map config=[:]){
         gitCheckout checkoutDirectory: "icdc-devops", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
 
         //update submodule for bento - experimental only
-        if( params["ProjectName"] == "bento"){
+        if( params["ProjectName"] == "bento" && config.service == "backend"){
             sh "git submodule update --init --recursive"
         }
         setEnvValues(){}

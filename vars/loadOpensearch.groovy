@@ -23,11 +23,11 @@ def call(Map config=[:]){
                         tier: "${config.tier}",
                         projectName: "${config.projectName}",
                         extraAnsibleVars: [
-                                s3_folder: config.s3_folder,
-                                wipe_db: config.wipe_db,
-                                cheat_mode: config.cheat_mode,
-                                data_bucket: config.data_bucket,
-                                split_transactions: config.split_transactions
+                                model_file1: config.model_file1,
+                                model_file2: config.model_file2,
+                                property_file: config.property_file,
+                                about_file: config.about_file,
+                                indices_file: config.indeces_file
                         ]
                 )
         }
