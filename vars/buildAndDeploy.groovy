@@ -29,7 +29,7 @@ def call(Map config=[:]){
 
         //update submodule for bento - experimental only
         if( params["ProjectName"] == "bento"){
-            sh "git submodule update --init"
+            sh "git submodule update --init --recursive"
         }
         setEnvValues(){}
         stage("build"){
