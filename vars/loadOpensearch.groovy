@@ -9,10 +9,10 @@ def call(Map config=[:]){
     ) {
         dataLoaderProperties  modelRepoUrl: "${config.modelRepoUrl}"
         gitCheckout checkoutDirectory: "icdc-devops", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
-        gitCheckout checkoutDirectory: config.modelCheckoutDirectory, gitUrl: config.modelRepoUrl, gitBranch: params["ModelTag"]
+        gitCheckout checkoutDirectory: "${params.ProjectName}-model", gitUrl: config.modelRepoUrl, gitBranch: params["ModelTag"]
         gitCheckout checkoutDirectory: "workspace", gitUrl: "https://github.com/CBIIT/icdc-dataloader",  gitBranch: params["LoaderTag"]
         gitCheckout checkoutDirectory: "${params.ProjectName}-frontend", gitUrl: config.frontendRepoUrl, gitBranch: params["FrontendTag"]
-        gitCheckout checkoutDirectory: "${params.ProjectName}-backend", gitUrl: config.frontendRepoUrl, gitBranch: params["BackendTag"]
+        gitCheckout checkoutDirectory: "${params.ProjectName}-backend", gitUrl: config.backendRepoUrl, gitBranch: params["BackendTag"]
 
         sh "git submodule update --init"
 
@@ -26,7 +26,6 @@ def call(Map config=[:]){
                                 model_file1: config.model_file1,
                                 model_file2: config.model_file2,
                                 property_file: config.property_file,
-                                about_file: config.about_file,
                                 indices_file: config.indeces_file
                         ]
                 )
