@@ -9,7 +9,7 @@ def call(Map config) {
                         submoduleCfg: [],
                         userRemoteConfigs: [[url: "${config.gitUrl}"]]
                 ])
-            }else if(config.checkoutSubmodule == "true"){
+            }else if( "${config.checkoutSubmodule}" == "true"){
                 def splitedUrl = "${config.gitUrl}".split("/")
                 def sshUrl = "git@${splitedUrl[2]}:${splitedUrl[3]}/${splitedUrl[4]}"
                 echo "Here"
