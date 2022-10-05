@@ -16,7 +16,7 @@ def call(Map config=[:]){
                 remoteRepoUrl: config.codeRepoUrl,
                 deploymentRepoUrl: config.deploymentRepoUrl
         )
-        gitCheckout checkoutDirectory: config.checkoutDirectory, gitUrl: config.codeRepoUrl, gitBranch: params[config.parameterName],checkoutSubmodule: config.config.checkoutSubmodule
+        gitCheckout checkoutDirectory: config.checkoutDirectory, gitUrl: config.codeRepoUrl, gitBranch: params[config.parameterName],checkoutSubmodule: config.checkoutSubmodule
         gitCheckout checkoutDirectory: config.deploymentCheckoutDirectory, gitUrl: config.deploymentRepoUrl, gitBranch: params["Environment"]
         if (config.includeFrontendRepo == true){
             additionalParameters values: [
