@@ -12,8 +12,8 @@ def call(Map config) {
             }else if(config.checkoutSubmodule == "true"){
                 echo "Here"
                 sh "mkdir -p ~/.ssh && touch ~/.ssh/config"
-                sh "echo "StrictHostKeyChecking no" > ~/.ssh/config"
-                git credentialsId: 'git-ssh-cred', url: config.gitUrl
+                sh '''echo "StrictHostKeyChecking no" > ~/.ssh/config'''
+                git credentialsId: 'git-ssh-cred', url: config.gitUrl,branch: config.gitBranch
             }else {
                 checkout([
                         $class: 'GitSCM', branches: [[name: "${config.gitBranch}"]],
