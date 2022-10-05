@@ -7,7 +7,6 @@ def call(Map config) {
                         doGenerateSubmoduleConfigurations: false,
                         extensions: [],
                         submoduleCfg: [],
-                        recursiveSubmodules: true,
                         userRemoteConfigs: [[url: "${config.gitUrl}"]]
                 ])
 
@@ -17,7 +16,6 @@ def call(Map config) {
                         doGenerateSubmoduleConfigurations: false,
                         extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "${config.checkoutDirectory}"]],
                         submoduleCfg: [],
-                        recursiveSubmodules: true,
                         userRemoteConfigs: [[url: "${config.gitUrl}"]]
                 ])
             }
