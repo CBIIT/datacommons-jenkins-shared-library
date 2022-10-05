@@ -10,7 +10,13 @@ def call(Map config) {
                         userRemoteConfigs: [[url: "${config.gitUrl}"]]
                 ])
             }else if(config.checkoutSubmodule == "true"){
-                git credentialsId: 'git-ssh-cred', url: config.gitUrl
+                checkout([
+                        $class: 'GitSCM', branches: [[name: "${config.gitBranch}"]],
+                        doGenerateSubmoduleConfigurations: false,
+                        extensions: [],
+                        submoduleCfg: [],
+                        userRemoteConfigs: [[url: "${config.gitUrl}", credentialsId: "git-ssh-cred"]]
+                ])
             }else {
                 checkout([
                         $class: 'GitSCM', branches: [[name: "${config.gitBranch}"]],
