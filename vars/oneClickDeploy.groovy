@@ -1,7 +1,13 @@
 import org.apache.tools.ant.types.Environment
 
 def call(Map config=[:]) {
-    buildStage(label: config.label) {
+    buildStage(
+        label: config.label,
+        useDockerAgent: "${config.useDockerAgent}",
+        agentImage: "${config.agentImage}",
+        dockerRegistryUrl: "${config.dockerRegistryUrl}",
+        registryCredentialsId: "${config.registryCredentialsId}"
+    ) {
         oneClickProperties()
         gitCheckout checkoutDirectory: config.checkoutDirectory, gitUrl: config.codeRepoUrl, gitBranch: params["Environment"]
         def deployment = readYaml file: config.deploymentFile
