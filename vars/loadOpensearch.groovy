@@ -26,7 +26,7 @@ def call(Map config=[:]){
                                 model_file_1: config.model_file1,
                                 model_file_2: config.model_file2,
                                 property_file: config.property_file,
-                                indices_file: config.indices_file
+                                indices_File: config.indices_file
                         ]
                 )
         }
