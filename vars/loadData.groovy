@@ -25,7 +25,11 @@ def call(Map config=[:]){
                                 wipe_db: config.wipe_db,
                                 cheat_mode: config.cheat_mode,
                                 data_bucket: config.data_bucket,
-                                split_transactions: config.split_transactions
+                                split_transactions: config.split_transactions,
+                                model_file_1: config.model_file1,
+                                model_file_2: config.model_file2,
+                                model_location: config.model_location,
+                                property_file: config.property_file,
                         ]
                 )
         }
