@@ -28,7 +28,6 @@ def call(Map config=[:]){
                                 split_transactions: config.split_transactions,
                                 model_file_1: config.model_file1,
                                 model_file_2: config.model_file2,
-                                model_location: config.model_location,
                                 property_file: config.property_file,
                         ]
                 )

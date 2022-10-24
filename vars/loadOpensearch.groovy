@@ -23,10 +23,10 @@ def call(Map config=[:]){
                         tier: "${config.tier}",
                         projectName: "${config.projectName}",
                         extraAnsibleVars: [
-                                model_File1: config.model_file1,
-                                model_File2: config.model_file2,
-                                property_File: config.property_file,
-                                indices_File: config.indices_file
+                                model_file_1: config.model_file1,
+                                model_file_2: config.model_file2,
+                                property_file: config.property_file,
+                                indices_file: config.indices_file
                         ]
                 )
         }
