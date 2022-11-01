@@ -30,7 +30,12 @@ def call(Map config=[:]){
             ]
             gitCheckout checkoutDirectory: config.frontendCheckoutDirectory, gitUrl: config.frontendRepoUrl, gitBranch: params["FrontendTag"]
         }
-        gitCheckout checkoutDirectory: "icdc-devops", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
+
+        if (config.playbookRepoUrl){
+            gitCheckout checkoutDirectory: "playbooks", gitUrl: config.playbookRepoUrl, gitBranch: config.playbookRepoBranch
+        }else{
+            gitCheckout checkoutDirectory: "playbooks", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
+        }
 
         //update submodule for bento - experimental only
         if( params["ProjectName"] == "bento" && config.service == "backend"){
@@ -39,9 +44,9 @@ def call(Map config=[:]){
         setEnvValues(){}
         stage("build"){
             if(parsedVars) {
-                runAnsible playbook: "${WORKSPACE}/${config.buildPlaybook}", inventory: "${WORKSPACE}/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}", extraAnsibleVars: parsedVars
+                runAnsible playbook: "${WORKSPACE}/playbooks/${config.buildPlaybook}", inventory: "${WORKSPACE}/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}", extraAnsibleVars: parsedVars
             } else {
-                runAnsible playbook: "${WORKSPACE}/${config.buildPlaybook}", inventory: "${WORKSPACE}/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
+                runAnsible playbook: "${WORKSPACE}/playbooks/${config.buildPlaybook}", inventory: "${WORKSPACE}/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
             }
         }
         stage("deploy"){
@@ -53,9 +58,9 @@ def call(Map config=[:]){
                 }
             }
             if(parsedVars){
-                runAnsible playbook: "${WORKSPACE}/${config.deployPlaybook}", inventory: "${WORKSPACE}/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}",extraAnsibleVars: parsedVars
+                runAnsible playbook: "${WORKSPACE}/playbooks/${config.deployPlaybook}", inventory: "${WORKSPACE}/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}",extraAnsibleVars: parsedVars
             }else {
-                runAnsible playbook: "${WORKSPACE}/${config.deployPlaybook}", inventory: "${WORKSPACE}/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
+                runAnsible playbook: "${WORKSPACE}/playbooks/${config.deployPlaybook}", inventory: "${WORKSPACE}/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
             }
 
         }

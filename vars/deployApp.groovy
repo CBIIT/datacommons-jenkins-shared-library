@@ -12,7 +12,11 @@ def call(Map config=[:]){
             registryCredentialsId: "${config.registryCredentialsId}"
     ) {
         deployProperties parameterName: "${config.parameterName}", repoName: "${config.repoName}"
-        gitCheckout checkoutDirectory: "icdc-devops", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
+        if (config.playbookRepoUrl){
+            gitCheckout checkoutDirectory: "playbooks", gitUrl: config.playbookRepoUrl, gitBranch: config.playbookRepoBranch
+        }else{
+            gitCheckout checkoutDirectory: "playbooks", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
+        }
         gitCheckout checkoutDirectory: config.deploymentCheckoutDirectory, gitUrl: config.deploymentRepoUrl, gitBranch: params["Environment"]
         setEnvValues(){
             if (config.service == "frontend"){
@@ -21,9 +25,9 @@ def call(Map config=[:]){
         }
         stage("deploy"){
             if(parsedVars){
-                runAnsible playbook: "${WORKSPACE}/${config.playbook}", inventory: "${WORKSPACE}/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}", extraAnsibleVars: parsedVars
+                runAnsible playbook: "${WORKSPACE}/playbooks/${config.playbook}", inventory: "${WORKSPACE}/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}", extraAnsibleVars: parsedVars
             }else{
-                runAnsible playbook: "${WORKSPACE}/${config.playbook}", inventory: "${WORKSPACE}/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
+                runAnsible playbook: "${WORKSPACE}/playbooks/${config.playbook}", inventory: "${WORKSPACE}/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
             }
         }
         notify secretPath: "${config.slackSecretPath}", secretName: "${config.slackSecretName}"
