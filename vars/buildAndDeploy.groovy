@@ -39,9 +39,9 @@ def call(Map config=[:]){
         setEnvValues(){}
         stage("build"){
             if(parsedVars) {
-                runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.buildPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}", extraAnsibleVars: parsedVars
+                runAnsible playbook: "${config.buildPlaybook}", inventory: "${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}", extraAnsibleVars: parsedVars
             } else {
-                runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.buildPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
+                runAnsible playbook: "${config.buildPlaybook}", inventory: "${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
             }
         }
         stage("deploy"){
@@ -53,9 +53,9 @@ def call(Map config=[:]){
                 }
             }
             if(parsedVars){
-                runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.deployPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}",extraAnsibleVars: parsedVars
+                runAnsible playbook: "${config.deployPlaybook}", inventory: "${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}",extraAnsibleVars: parsedVars
             }else {
-                runAnsible playbook: "${WORKSPACE}/icdc-devops/ansible/${config.deployPlaybook}", inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
+                runAnsible playbook: "${config.deployPlaybook}", inventory: "${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
             }
 
         }
