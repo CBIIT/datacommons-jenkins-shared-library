@@ -44,9 +44,9 @@ def call(Map config=[:]){
         setEnvValues(){}
         stage("build"){
             if(parsedVars) {
-                runAnsible playbook: "${WORKSPACE}/playbooks/${config.buildPlaybook}", inventory: "${WORKSPACE}/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}", extraAnsibleVars: parsedVars
+                runAnsible playbook: "${WORKSPACE}/playbooks/${config.buildPlaybook}", inventory: "${WORKSPACE}/playbooks/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}", extraAnsibleVars: parsedVars
             } else {
-                runAnsible playbook: "${WORKSPACE}/playbooks/${config.buildPlaybook}", inventory: "${WORKSPACE}/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
+                runAnsible playbook: "${WORKSPACE}/playbooks/${config.buildPlaybook}", inventory: "${WORKSPACE}/playbooks/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
             }
         }
         stage("deploy"){
@@ -58,9 +58,9 @@ def call(Map config=[:]){
                 }
             }
             if(parsedVars){
-                runAnsible playbook: "${WORKSPACE}/playbooks/${config.deployPlaybook}", inventory: "${WORKSPACE}/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}",extraAnsibleVars: parsedVars
+                runAnsible playbook: "${WORKSPACE}/playbooks/${config.deployPlaybook}", inventory: "${WORKSPACE}/playbooks/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}",extraAnsibleVars: parsedVars
             }else {
-                runAnsible playbook: "${WORKSPACE}/playbooks/${config.deployPlaybook}", inventory: "${WORKSPACE}/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
+                runAnsible playbook: "${WORKSPACE}/playbooks/${config.deployPlaybook}", inventory: "${WORKSPACE}/playbooks/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
             }
 
         }

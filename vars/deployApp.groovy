@@ -25,9 +25,9 @@ def call(Map config=[:]){
         }
         stage("deploy"){
             if(parsedVars){
-                runAnsible playbook: "${WORKSPACE}/playbooks/${config.playbook}", inventory: "${WORKSPACE}/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}", extraAnsibleVars: parsedVars
+                runAnsible playbook: "${WORKSPACE}/playbooks/${config.playbook}", inventory: "${WORKSPACE}/playbooks/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}", extraAnsibleVars: parsedVars
             }else{
-                runAnsible playbook: "${WORKSPACE}/playbooks/${config.playbook}", inventory: "${WORKSPACE}/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
+                runAnsible playbook: "${WORKSPACE}/playbooks/${config.playbook}", inventory: "${WORKSPACE}/playbooks/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
             }
         }
         notify secretPath: "${config.slackSecretPath}", secretName: "${config.slackSecretName}"
