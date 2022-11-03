@@ -8,7 +8,11 @@ def call(Map config=[:]){
             registryCredentialsId: "${config.registryCredentialsId}"
     ) {
         dataLoaderProperties  modelRepoUrl: "${config.modelRepoUrl}"
-        gitCheckout checkoutDirectory: "icdc-devops", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
+        if (config.playbookRepoUrl){
+            gitCheckout checkoutDirectory: "playbooks", gitUrl: config.playbookRepoUrl, gitBranch: config.playbookRepoBranch
+        }else{
+            gitCheckout checkoutDirectory: "playbooks", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
+        }
         gitCheckout checkoutDirectory: config.modelCheckoutDirectory, gitUrl: config.modelRepoUrl, gitBranch: params["ModelTag"]
         gitCheckout checkoutDirectory: "workspace", gitUrl: "https://github.com/CBIIT/icdc-dataloader",  gitBranch: params["LoaderTag"]
 
@@ -16,8 +20,8 @@ def call(Map config=[:]){
 
         stage("loader"){
                 runAnsible(
-                        playbook: "${WORKSPACE}/icdc-devops/ansible/${config.playbook}",
-                        inventory: "${WORKSPACE}/icdc-devops/ansible/${config.inventory}",
+                        playbook: "${WORKSPACE}/playbooks/${config.playbook}",
+                        inventory: "${WORKSPACE}/playbooks/${config.inventory}",
                         tier: "${config.tier}",
                         projectName: "${config.projectName}",
                         extraAnsibleVars: [
