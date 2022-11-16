@@ -7,7 +7,7 @@ def call(Map config=[:]){
             dockerRegistryUrl: "${config.dockerRegistryUrl}",
             registryCredentialsId: "${config.registryCredentialsId}"
     ) {
-        opensearchLoaderProperties  modelRepoUrl: "${config.modelRepoUrl}"
+        opensearchLoaderProperties  modelRepoUrl: config.modelRepoUrl, backendRepoUrl: config.backendRepoUrl,config.frontendRepoUrl,customBranch: config.customBranch
         if (config.playbookRepoUrl){
             gitCheckout checkoutDirectory: "playbooks", gitUrl: config.playbookRepoUrl, gitBranch: config.playbookRepoBranch
         }else{
