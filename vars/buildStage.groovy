@@ -8,7 +8,7 @@ def call(Map config=[:],Closure body) {
 						def nodeMemory = config.nodeMemory ?: "8192"
                         buildAgent.pull()
                         withDockerContainer(
-                                args: "--net=host -u root -v /var/run/docker.sock:/var/run/docker.sock -e NODE_OPTIONS='--max-old-space-size=${nodeMemory}'",
+                                args: "--net=host -u root -v /var/run/docker.sock:/var/run/docker.sock --dns="8.8.8.8" -e NODE_OPTIONS='--max-old-space-size=${nodeMemory}'",
                                 image: config.agentImage
                         ){
                             body()
