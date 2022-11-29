@@ -8,13 +8,15 @@ def call(Map config=[:],Closure body) {
 						//def nodeMemory = config.nodeMemory ?: "8192"
 						def nodeMemory = config.nodeMemory ?: "2048"
                         buildAgent.pull()
-                        withDockerContainer(
-                                args: "--net=host -u root -v /var/run/docker.sock:/var/run/docker.sock -e NODE_OPTIONS='--max-old-space-size=${nodeMemory}'",
+                        withEnv(['NODE_OPTIONS=--max-old-space-size=${nodeMemory}']) {
+						    withDockerContainer(
+                                //args: "--net=host -u root -v /var/run/docker.sock:/var/run/docker.sock -e NODE_OPTIONS='--max-old-space-size=${nodeMemory}'",
+								args: "--net=host -u root -v /var/run/docker.sock:/var/run/docker.sock",
                                 image: config.agentImage
-                        ){
-                            body()
+                            ){
+                                body()
+                            }
                         }
-
                     }
                 }
             }
