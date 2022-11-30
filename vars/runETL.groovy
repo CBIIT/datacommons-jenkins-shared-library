@@ -25,7 +25,7 @@ def call(Map config=[:]){
                         projectName: "${config.projectName}",
                         extraAnsibleVars: [
                                 data_batch_name: config.data_batch_name,
-                                s3_bucket: config.split_transactions,
+                                s3_bucket: config.s3_bucket,
                                 s3_rawdata_subfolder: config.s3_rawdata_subfolder,
                                 version: config.version
                         ]
