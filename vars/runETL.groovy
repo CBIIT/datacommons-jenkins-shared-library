@@ -1,0 +1,36 @@
+def call(Map config=[:]){
+
+    buildStage(
+            label: "${config.label}",
+            useDockerAgent: "${config.useDockerAgent}",
+            agentImage: "${config.agentImage}",
+            dockerRegistryUrl: "${config.dockerRegistryUrl}",
+            registryCredentialsId: "${config.registryCredentialsId}"
+    ) {
+        dataLoaderETLProperties  etlRepoUrl: "${config.etlRepoUrl}"
+        if (config.playbookRepoUrl){
+            gitCheckout checkoutDirectory: "playbooks", gitUrl: config.playbookRepoUrl, gitBranch: config.playbookRepoBranch
+        }else{
+            gitCheckout checkoutDirectory: "playbooks", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
+        }
+        gitCheckout checkoutDirectory: "workspace", gitUrl: "${config.etlRepoUrl}",  gitBranch: params["ETLTag"]
+
+        sh "git submodule update --init"
+
+        stage("ETL"){
+                runAnsible(
+                        playbook: "${WORKSPACE}/playbooks/${config.playbook}",
+                        inventory: "${WORKSPACE}/playbooks/${config.inventory}",
+                        tier: "${config.tier}",
+                        projectName: "${config.projectName}",
+                        extraAnsibleVars: [
+                                data_batch_name: config.data_batch_name,
+                                s3_bucket: config.split_transactions,
+                                s3_rawdata_subfolder: config.s3_rawdata_subfolder,
+                                version: config.version
+                        ]
+                )
+        }
+        notify secretPath: "${config.slackSecretPath}", secretName: "${config.slackSecretName}"
+    }
+}
