@@ -48,10 +48,10 @@ def call(Map config=[:]){
                     runAnsible playbook: "${WORKSPACE}/playbooks/${config.buildPlaybook}", inventory: "${WORKSPACE}/playbooks/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}", extraAnsibleVars: parsedVars
                 //}
             } else {
-                //withEnv(["NODE_OPTIONS=--max-old-space-size=2048"]) {
-					sh "echo ${NODE_OPTIONS}"
+                withEnv(["NODE_OPTIONS=--max-old-space-size=4096"]) {
+					sh "echo Node Options:     ${NODE_OPTIONS}"
 					runAnsible playbook: "${WORKSPACE}/playbooks/${config.buildPlaybook}", inventory: "${WORKSPACE}/playbooks/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
-                //}
+                }
             }
         }
         stage("deploy"){
