@@ -5,6 +5,5 @@ def call(Closure body) {
     env.PROJECT_NAME = "${params.ProjectName}"
     env.FILES_VERSION = "${params.FilesTag}"
     env.USERS_VERSION = "${params.UsersTag}"
-	env.NODE_OPTIONS = "--max-old-space-size=4096"
     body()
 }

@@ -44,9 +44,13 @@ def call(Map config=[:]){
         setEnvValues(){}
         stage("build"){
             if(parsedVars) {
-                runAnsible playbook: "${WORKSPACE}/playbooks/${config.buildPlaybook}", inventory: "${WORKSPACE}/playbooks/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}", extraAnsibleVars: parsedVars
+                withEnv(["NODE_OPTIONS=--max-old-space-size=2048"]) {
+                    runAnsible playbook: "${WORKSPACE}/playbooks/${config.buildPlaybook}", inventory: "${WORKSPACE}/playbooks/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}", extraAnsibleVars: parsedVars
+                }
             } else {
-                runAnsible playbook: "${WORKSPACE}/playbooks/${config.buildPlaybook}", inventory: "${WORKSPACE}/playbooks/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
+                withEnv(["NODE_OPTIONS=--max-old-space-size=2048"]) {
+                    runAnsible playbook: "${WORKSPACE}/playbooks/${config.buildPlaybook}", inventory: "${WORKSPACE}/playbooks/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
+                }
             }
         }
         stage("deploy"){
