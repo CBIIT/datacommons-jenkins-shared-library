@@ -78,6 +78,6 @@ def call(Map config=[:]){
             tagRepo gitTag: params["${config.parameterName}"], gitUrl: "${config.codeRepoUrl}", checkoutDirectory: "${config.checkoutDirectory}"
         }
         notify secretPath: "${config.slackSecretPath}", secretName: "${config.slackSecretName}"
-		post
+        post
     }
 }
