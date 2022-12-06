@@ -9,7 +9,8 @@ def call(Map config=[:]){
             useDockerAgent: "${config.useDockerAgent}",
             agentImage: "${config.agentImage}",
             dockerRegistryUrl: "${config.dockerRegistryUrl}",
-            registryCredentialsId: "${config.registryCredentialsId}"
+            registryCredentialsId: "${config.registryCredentialsId}",
+			nodeMemory: "${config.nodeMemory}"
     ) {
         buildProperties(
                 name: config.parameterName,
@@ -44,14 +45,9 @@ def call(Map config=[:]){
         setEnvValues(){}
         stage("build"){
             if(parsedVars) {
-                //withEnv(["NODE_OPTIONS=--max-old-space-size=2048"]) {
-                    runAnsible playbook: "${WORKSPACE}/playbooks/${config.buildPlaybook}", inventory: "${WORKSPACE}/playbooks/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}", extraAnsibleVars: parsedVars
-                //}
+                runAnsible playbook: "${WORKSPACE}/playbooks/${config.buildPlaybook}", inventory: "${WORKSPACE}/playbooks/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}", extraAnsibleVars: parsedVars
             } else {
-                withEnv(["NODE_OPTIONS=--max-old-space-size=4096"]) {
-					sh "echo Node Options:     ${NODE_OPTIONS}"
-					runAnsible playbook: "${WORKSPACE}/playbooks/${config.buildPlaybook}", inventory: "${WORKSPACE}/playbooks/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
-                }
+                runAnsible playbook: "${WORKSPACE}/playbooks/${config.buildPlaybook}", inventory: "${WORKSPACE}/playbooks/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
             }
         }
         stage("deploy"){
@@ -83,5 +79,6 @@ def call(Map config=[:]){
             tagRepo gitTag: params["${config.parameterName}"], gitUrl: "${config.codeRepoUrl}", checkoutDirectory: "${config.checkoutDirectory}"
         }
         notify secretPath: "${config.slackSecretPath}", secretName: "${config.slackSecretName}"
+        post
     }
 }
