@@ -15,13 +15,8 @@ def call(Map config=[:],Closure body) {
 
                                 body()
 
-					        } catch (e) {
-
-					            echo "build failed: ${e}"
-
 					        } finally {
 
-					            //post
 								cleanWs()
 
 					        }
@@ -39,13 +34,9 @@ def call(Map config=[:],Closure body) {
 					    
 						body()
 						
-					} catch (e) {
-					
-					    echo "build failed"
-					
 					} finally {
 					
-					    post
+					    cleanWs()
 						
 					}
                 }
