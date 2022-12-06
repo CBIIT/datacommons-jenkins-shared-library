@@ -17,11 +17,12 @@ def call(Map config=[:],Closure body) {
 
 					        } catch (e) {
 
-					            echo "build failed"
+					            echo "build failed: ${e}"
 
 					        } finally {
 
-					            post
+					            //post
+								cleanWs()
 
 					        }
                         }
