@@ -79,7 +79,9 @@ def call(Map config=[:]){
             tagRepo gitTag: params["${config.parameterName}"], gitUrl: "${config.codeRepoUrl}", checkoutDirectory: "${config.checkoutDirectory}"
         }
         
-		config.postBuildJobs.each { runPostJobs jobPath: "${it.jobPath}" jobParams: "${it.jobParams}" }
+		if (config.postBuildJobs){
+            config.postBuildJobs.each { runPostJobs jobPath: "${it.jobPath}" jobParams: "${it.jobParams}" }
+        }
 		notify secretPath: "${config.slackSecretPath}", secretName: "${config.slackSecretName}"
     }
 }
