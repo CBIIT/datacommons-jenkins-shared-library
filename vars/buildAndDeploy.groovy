@@ -78,6 +78,8 @@ def call(Map config=[:]){
         stage("tag repos"){
             tagRepo gitTag: params["${config.parameterName}"], gitUrl: "${config.codeRepoUrl}", checkoutDirectory: "${config.checkoutDirectory}"
         }
-        notify secretPath: "${config.slackSecretPath}", secretName: "${config.slackSecretName}"
+        
+		config.postBuildJobs.each { runPostJobs jobPath: "${it.jobPath}" jobParams: "${it.jobParams}" }
+		notify secretPath: "${config.slackSecretPath}", secretName: "${config.slackSecretName}"
     }
 }
