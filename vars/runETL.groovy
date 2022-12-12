@@ -8,12 +8,13 @@ def call(Map config=[:]){
             registryCredentialsId: "${config.registryCredentialsId}"
     ) {
         dataLoaderETLProperties  etlRepoUrl: "${config.etlRepoUrl}"
+        gitCheckout checkoutDirectory: "workspace", gitUrl: "${config.etlRepoUrl}",  gitBranch: params["ETLTag"]
         if (config.playbookRepoUrl){
             gitCheckout checkoutDirectory: "playbooks", gitUrl: config.playbookRepoUrl, gitBranch: config.playbookRepoBranch
         }else{
-            gitCheckout checkoutDirectory: "playbooks", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
+            gitCheckout checkoutDirectory: "$WORKSPACE}/playbooks", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
         }
-        gitCheckout checkoutDirectory: "workspace", gitUrl: "${config.etlRepoUrl}",  gitBranch: params["ETLTag"]
+
 
         sh "git submodule update --init"
         sh "ls -la ${WORKSPACE}"

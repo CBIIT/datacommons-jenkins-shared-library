@@ -18,9 +18,6 @@ def call(Map config) {
                         submoduleCfg: [],
                         userRemoteConfigs: [[url: "${config.gitUrl}"]]
                 ])
-                sh "ls -la"
-                sh "pwd"
-                sh "ls -l ${WORKSPACE}"
             }
         }
     }
