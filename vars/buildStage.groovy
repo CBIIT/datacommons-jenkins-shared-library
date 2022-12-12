@@ -11,7 +11,15 @@ def call(Map config=[:],Closure body) {
                                 args: "--net=host -u root -v /var/run/docker.sock:/var/run/docker.sock -e NODE_OPTIONS='--max-old-space-size=${nodeMemory}'",
                                 image: config.agentImage
                         ){
-                            body()
+                            try {
+
+                                body()
+
+					        } finally {
+
+								cleanWs()
+
+					        }
                         }
 
                     }
@@ -22,7 +30,15 @@ def call(Map config=[:],Closure body) {
         node("${config.label}") {
             ansiColor('xterm') {
                 timestamps {
-                    body()
+                    try {
+					    
+						body()
+						
+					} finally {
+					
+					    cleanWs()
+						
+					}
                 }
             }
         }

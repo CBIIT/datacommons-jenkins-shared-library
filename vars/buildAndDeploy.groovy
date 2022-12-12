@@ -9,7 +9,8 @@ def call(Map config=[:]){
             useDockerAgent: "${config.useDockerAgent}",
             agentImage: "${config.agentImage}",
             dockerRegistryUrl: "${config.dockerRegistryUrl}",
-            registryCredentialsId: "${config.registryCredentialsId}"
+            registryCredentialsId: "${config.registryCredentialsId}",
+			nodeMemory: "${config.nodeMemory}"
     ) {
         buildProperties(
                 name: config.parameterName,
