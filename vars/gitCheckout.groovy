@@ -19,6 +19,7 @@ def call(Map config) {
                         userRemoteConfigs: [[url: "${config.gitUrl}"]]
                 ])
                 sh "ls -la"
+                sh "pwd"
             }
         }
     }
