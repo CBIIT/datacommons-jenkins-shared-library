@@ -20,6 +20,7 @@ def call(Map config) {
                 ])
                 sh "ls -la"
                 sh "pwd"
+                sh "ls -l ${WORKSPACE}"
             }
         }
     }
