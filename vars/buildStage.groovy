@@ -16,8 +16,8 @@ def call(Map config=[:],Closure body) {
                                 body()
 
 					        } finally {
-
-								cleanWs()
+                                sh "echo hello"
+//								cleanWs()
 
 					        }
                         }
