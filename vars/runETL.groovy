@@ -16,7 +16,7 @@ def call(Map config=[:]){
         gitCheckout checkoutDirectory: "workspace", gitUrl: "${config.etlRepoUrl}",  gitBranch: params["ETLTag"]
 
         sh "git submodule update --init"
-
+        sh "ls -la"
         stage("ETL"){
                 runAnsible(
                         playbook: "${WORKSPACE}/playbooks/${config.playbook}",
