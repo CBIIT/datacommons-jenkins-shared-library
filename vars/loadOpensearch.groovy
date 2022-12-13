@@ -41,6 +41,5 @@ def call(Map config=[:]){
                 )
         }
         notify secretPath: "${config.slackSecretPath}", secretName: "${config.slackSecretName}"
-        post
     }
 }
