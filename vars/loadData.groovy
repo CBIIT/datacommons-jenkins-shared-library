@@ -17,7 +17,7 @@ def call(Map config=[:]){
         gitCheckout checkoutDirectory: "workspace", gitUrl: "https://github.com/CBIIT/icdc-dataloader",  gitBranch: params["LoaderTag"]
 
         sh "git submodule update --init"
-
+        sh "ls -l"
         stage("loader"){
                 runAnsible(
                         playbook: "${WORKSPACE}/playbooks/${config.playbook}",
