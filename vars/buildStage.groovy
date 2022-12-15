@@ -36,8 +36,7 @@ def call(Map config=[:],Closure body) {
 						
 					} finally {
 
-					    echo "cleanup commented"
-						//cleanWs()
+					    cleanWs()
 						
 					}
                 }
