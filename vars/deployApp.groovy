@@ -32,7 +32,7 @@ def call(Map config=[:]){
         }
         
 		if (config.postBuildJobs){
-            config.postBuildJobs.each { runPostJobs jobPath: "${it.jobPath}", jobParams: "${it.jobParams}" }
+            config.postBuildJobs.each { runPostJobs jobPath: "${it.jobPath}", jobParams: it.jobParams }
         }
 		notify secretPath: "${config.slackSecretPath}", secretName: "${config.slackSecretName}"
     }
