@@ -19,6 +19,7 @@ def call(Map config=[:]){
         }else{
             gitCheckout checkoutDirectory: "${WORKSPACE}/playbooks", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
         }
+        sh "ls -l"
         gitCheckout checkoutDirectory: "${params.ProjectName}-model", gitUrl: config.modelRepoUrl, gitBranch: params["ModelTag"]
         gitCheckout checkoutDirectory: "workspace", gitUrl: "https://github.com/CBIIT/icdc-dataloader",  gitBranch: params["LoaderTag"]
         gitCheckout checkoutDirectory: "${params.ProjectName}-frontend", gitUrl: config.frontendRepoUrl, gitBranch: params["FrontendTag"]
