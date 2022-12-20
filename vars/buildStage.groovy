@@ -16,8 +16,8 @@ def call(Map config=[:],Closure body) {
                                 body()
 
 					        } finally {
-
-								cleanWs()
+                                sh "echo hello"
+//								cleanWs()
 
 					        }
                         }
@@ -35,8 +35,9 @@ def call(Map config=[:],Closure body) {
 						body()
 						
 					} finally {
+                        sh "echo hello"
 
-					    cleanWs()
+//					    cleanWs()
 						
 					}
                 }

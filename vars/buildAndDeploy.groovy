@@ -42,6 +42,7 @@ def call(Map config=[:]){
         if( params["ProjectName"] == "bento" && config.service == "backend"){
             sh "git submodule update --init --recursive"
         }
+        //adding submodule for auth
         setEnvValues(){}
         stage("build"){
             if(parsedVars) {
