@@ -5,10 +5,9 @@ def call(Map config){
 		
 		def paramList = []
 		config.jobParams.each { paramList.add( it ) }
-		echo "${paramList}"
-		echo "${config.jobParams}"
 		
-		build job: "${config.jobPath}", parameters: paramList
+		//build job: "${config.jobPath}", parameters: paramList
+		build job: "${config.jobPath}", parameters: config.jobParams
 
     }
 }
