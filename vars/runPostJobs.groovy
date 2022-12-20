@@ -3,7 +3,10 @@ def call(Map config){
 
 		echo "Running post-build job:  ${config.jobPath}"
 		
-		config.jobParams.each { echo "${it}" }
+		//def paramList = []
+		//config.jobParams.each { paramList.add(${it}) }
+		config.jobParams.each { echo ${it} }
+		//echo "${paramList}"
 		
 		build job: "${config.jobPath}", parameters: [config.jobParams]
 
