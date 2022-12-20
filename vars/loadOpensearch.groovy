@@ -14,7 +14,7 @@ def call(Map config=[:]){
                 customBranch: config.customBranch,
                 useCustomBranch: config.useCustomBranch
         )
-        if (config.playbookRepoUrl){
+        if ("${config.playbookRepoUrl}"){
             gitCheckout checkoutDirectory: "${WORKSPACE}/playbooks", gitUrl: config.playbookRepoUrl, gitBranch: config.playbookRepoBranch
         }else{
             gitCheckout checkoutDirectory: "${WORKSPACE}/playbooks", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
