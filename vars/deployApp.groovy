@@ -30,10 +30,8 @@ def call(Map config=[:]){
                 runAnsible playbook: "${WORKSPACE}/playbooks/${config.playbook}", inventory: "${WORKSPACE}/playbooks/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}"
             }
         }
-        
-		if (config.postBuildJobs){
-            config.postBuildJobs.each { runPostJobs jobPath: "${it.jobPath}", jobParams: it.jobParams }
-        }
+
 		notify secretPath: "${config.slackSecretPath}", secretName: "${config.slackSecretName}"
+
     }
 }

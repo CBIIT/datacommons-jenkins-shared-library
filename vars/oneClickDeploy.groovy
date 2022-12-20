@@ -31,5 +31,9 @@ def call(Map config=[:]) {
             )
         }
 
+		if (config.postBuildJobs){
+            config.postBuildJobs.each { runPostJobs jobPath: "${it.jobPath}", jobParams: it.jobParams }
+        }
+
     }
 }
