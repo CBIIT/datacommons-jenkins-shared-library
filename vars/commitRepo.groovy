@@ -13,6 +13,7 @@ def call(Map config) {
         git config --global push.followTags true
         git config user.email "jenkins@bento-tools.org"
         git config user.name "Bento Jenkins"
+        git pull
         git add --all .
         git commit -am "tagging latest deployment.yaml"
         git push "https://${GIT_TOKEN}:x-oauth-basic@${GIT_URL}" HEAD:${params.Environment}
