@@ -4,6 +4,7 @@ def call(Closure body) {
     env.AUTH_VERSION = "${params.AuthTag}"
     env.PROJECT_NAME = "${params.ProjectName}"
     env.FILES_VERSION = "${params.FilesTag}"
+	env.IO_VERSION = "${params.InteroperationTag}"
     env.USERS_VERSION = "${params.UsersTag}"
     body()
 }
