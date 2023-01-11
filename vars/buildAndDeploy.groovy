@@ -46,7 +46,7 @@ def call(Map config=[:]){
         //checkout submodules for auth,files and users
 
         if (config.service in ["auth","files","users"]){
-            sh "cd ${config.checkoutDirectory} && ls -l && submodule update --init --recursive"
+            sh "cd ${config.checkoutDirectory} && ls -l && git submodule update --init --recursive"
         }
 
        
