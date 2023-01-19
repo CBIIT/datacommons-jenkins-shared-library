@@ -8,10 +8,9 @@ def call(Map config=[:]){
             registryCredentialsId: "${config.registryCredentialsId}"
     ) {
         dataLoaderProperties  modelRepoUrl: "${config.modelRepoUrl}"
-
-        gitCheckout checkoutDirectory: config.modelCheckoutDirectory, gitUrl: config.modelRepoUrl, gitBranch: params["ModelTag"]
         gitCheckout checkoutDirectory: "workspace", gitUrl: "https://github.com/CBIIT/icdc-dataloader",  gitBranch: params["LoaderTag"]
-        sh "git submodule update --init"
+        gitCheckout checkoutDirectory: "${WORKSPACE}/${config.modelCheckoutDirectory}", gitUrl: config.modelRepoUrl, gitBranch: params["ModelTag"]
+        sh "cd ${WORKSPACE} && git submodule update --init"
         if (config.playbookRepoUrl){
             gitCheckout checkoutDirectory: "${WORKSPACE}/playbooks", gitUrl: config.playbookRepoUrl, gitBranch: config.playbookRepoBranch
         }else{
