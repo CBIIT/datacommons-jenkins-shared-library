@@ -15,9 +15,9 @@ def call(Map config=[:]){
                 useCustomBranch: config.useCustomBranch
         )
         gitCheckout checkoutDirectory: "workspace", gitUrl: "https://github.com/CBIIT/icdc-dataloader",  gitBranch: params["LoaderTag"]
-        gitCheckout checkoutDirectory: "${params.ProjectName}-model", gitUrl: config.modelRepoUrl, gitBranch: params["ModelTag"]
-        gitCheckout checkoutDirectory: "${params.ProjectName}-frontend", gitUrl: config.frontendRepoUrl, gitBranch: params["FrontendTag"]
-        gitCheckout checkoutDirectory: "${params.ProjectName}-backend", gitUrl: config.backendRepoUrl, gitBranch: params["BackendTag"]
+        gitCheckout checkoutDirectory: "${WORKSPACE}/${params.ProjectName}-model", gitUrl: config.modelRepoUrl, gitBranch: params["ModelTag"]
+        gitCheckout checkoutDirectory: "${WORKSPACE}/${params.ProjectName}-frontend", gitUrl: config.frontendRepoUrl, gitBranch: params["FrontendTag"]
+        gitCheckout checkoutDirectory: "${WORKSPACE}/${params.ProjectName}-backend", gitUrl: config.backendRepoUrl, gitBranch: params["BackendTag"]
         if (config.playbookRepoUrl){
             gitCheckout checkoutDirectory: "${WORKSPACE}/playbooks", gitUrl: config.playbookRepoUrl, gitBranch: config.playbookRepoBranch
         }else{
