@@ -6,5 +6,6 @@ def call(Closure body) {
     env.FILES_VERSION = "${params.FilesTag}"
 	env.IO_VERSION = "${params.InteroperationTag}"
     env.USERS_VERSION = "${params.UsersTag}"
+    env.NEO4J_VERSION = "${params.Neo4jTag}"
     body()
 }
