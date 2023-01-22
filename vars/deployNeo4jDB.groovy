@@ -18,7 +18,7 @@ def call(Map config=[:]){
         }else{
             gitCheckout checkoutDirectory: "playbooks", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
         }
-        setEnvValues()
+        setEnvValues(){}
         stage("deploy"){
             if(parsedVars){
                 runAnsible playbook: "${WORKSPACE}/playbooks/${config.playbook}", inventory: "${WORKSPACE}/playbooks/${config.inventory}", tier: "${config.tier}", projectName: "${config.projectName}", extraAnsibleVars: parsedVars
