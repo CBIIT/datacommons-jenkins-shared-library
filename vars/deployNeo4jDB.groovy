@@ -11,7 +11,7 @@ def call(Map config=[:]){
             dockerRegistryUrl: "${config.dockerRegistryUrl}",
             registryCredentialsId: "${config.registryCredentialsId}"
     ) {
-        deployNeo4jProperties()
+        deployProperties parameterName: "${config.parameterName}", repoName: "${config.repoName}"
         if (config.playbookRepoUrl){
             gitCheckout checkoutDirectory: "playbooks", gitUrl: config.playbookRepoUrl, gitBranch: config.playbookRepoBranch
         }else{
