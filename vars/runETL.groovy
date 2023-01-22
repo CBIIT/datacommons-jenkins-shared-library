@@ -16,7 +16,6 @@ def call(Map config=[:]){
             gitCheckout checkoutDirectory: "playbooks", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
         }
 
-
         sh "git submodule update --init"
         sh "ls -la ${WORKSPACE}"
         stage("ETL"){
