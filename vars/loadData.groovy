@@ -16,7 +16,7 @@ def call(Map config=[:]){
         }else{
             gitCheckout checkoutDirectory: "${WORKSPACE}/playbooks", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
         }
-        sh "ls -l"
+        sh "ls -l ${WORKSPACE}/${config.modelCheckoutDirectory}"
         stage("loader"){
                 runAnsible(
                         playbook: "${WORKSPACE}/playbooks/${config.playbook}",
