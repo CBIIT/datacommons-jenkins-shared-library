@@ -63,7 +63,15 @@ def call(Map config){
                                             sortMode: "NONE",
                                             tagFilter: "*",
                                             type: "PT_BRANCH_TAG",
-                                            useRepository: "${config.modelRepoUrl}")
+                                            useRepository: "${config.modelRepoUrl}"),
+                                    extendedChoice(
+                                            defaultValue: 'no',
+                                            name: 'LoadNeo4jContainer',
+                                            description: 'Choose to load data to neo4j container or not',
+                                            quoteValue: false,
+                                            multiSelectDelimiter: ',',
+                                            value: 'no,yes',
+                                            type: 'PT_RADIO'),
                             ]
 
                     )
