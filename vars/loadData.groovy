@@ -32,6 +32,7 @@ def call(Map config=[:]){
                                 model_file_1: config.model_file1,
                                 model_file_2: config.model_file2,
                                 property_File: config.property_file,
+                                load_neo4j_container: "${params.LoadNeo4jContainer}"
                         ]
                 )
         }
