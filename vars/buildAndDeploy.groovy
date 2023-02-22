@@ -39,7 +39,7 @@ def call(Map config=[:]){
         }
 
         //update submodule for bento - experimental only
-	    if( params["ProjectName"] == "popsci" && config.service == "backend"){
+	    if(config.service == "backend"){
             sh "git submodule update --init --recursive"
         }
 
