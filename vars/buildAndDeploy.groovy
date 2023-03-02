@@ -29,11 +29,11 @@ def call(Map config=[:]){
                     gitParameter(branch: "", branchFilter: "origin/(.*)", defaultValue: "main", description: "Select Branch or Tag to build", name: "FrontendTag", quickFilterEnabled: false, selectedValue: "NONE", sortMode: "NONE", tagFilter: "*", type: "GitParameterDefinition",useRepository: config.frontendRepoUrl),
                     //booleanParam(defaultValue: false, name: 'AuthEnabled')
             ]
-            gitCheckout checkoutDirectory: config.frontendCheckoutDirectory, gitUrl: config.frontendRepoUrl, gitBranch: params["FrontendTag"]
+            gitCheckout checkoutDirectory: config.frontendCheckoutDirectory, gitUrl: config.frontendRepoUrl, gitToken: config.githubToken, gitBranch: params["FrontendTag"]
         }
 
         if (config.playbookRepoUrl){
-            gitCheckout checkoutDirectory: "playbooks", gitUrl: config.playbookRepoUrl, gitBranch: config.playbookRepoBranch
+            gitCheckout checkoutDirectory: "playbooks", gitUrl: config.playbookRepoUrl, gitToken: config.githubToken, gitBranch: config.playbookRepoBranch
         }else{
             gitCheckout checkoutDirectory: "playbooks", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
         }
