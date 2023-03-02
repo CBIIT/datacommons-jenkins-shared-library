@@ -7,7 +7,7 @@ def call(Map config) {
                         doGenerateSubmoduleConfigurations: false,
                         extensions: [],
                         submoduleCfg: [],
-                        userRemoteConfigs: [[url: "${config.gitUrl}"]]
+                        userRemoteConfigs: [[credentialsId: "${config.gitToken}",url: "${config.gitUrl}"]]
                 ])
 
             }else {
@@ -16,7 +16,7 @@ def call(Map config) {
                         doGenerateSubmoduleConfigurations: false,
                         extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "${config.checkoutDirectory}"]],
                         submoduleCfg: [],
-                        userRemoteConfigs: [[url: "${config.gitUrl}"]]
+                        userRemoteConfigs: [[credentialsId: "${config.gitToken}",url: "${config.gitUrl}"]]
                 ])
             }
         }

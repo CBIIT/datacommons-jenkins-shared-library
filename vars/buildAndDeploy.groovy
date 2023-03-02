@@ -17,8 +17,8 @@ def call(Map config=[:]){
                 remoteRepoUrl: config.codeRepoUrl,
                 deploymentRepoUrl: config.deploymentRepoUrl
         )
-        gitCheckout checkoutDirectory: config.checkoutDirectory, gitUrl: config.codeRepoUrl, gitBranch: params[config.parameterName]
-        gitCheckout checkoutDirectory: config.deploymentCheckoutDirectory, gitUrl: config.deploymentRepoUrl, gitBranch: params["Environment"]
+        gitCheckout checkoutDirectory: config.checkoutDirectory, gitUrl: config.codeRepoUrl, gitToken: config.githubToken, gitBranch: params[config.parameterName]
+        gitCheckout checkoutDirectory: config.deploymentCheckoutDirectory, gitUrl: config.deploymentRepoUrl, gitToken: config.githubToken, gitBranch: params["Environment"]
         if (config.service == "backend"){
             additionalParameters values: [
                     booleanParam(defaultValue: false, name: 'AuthEnabled')
