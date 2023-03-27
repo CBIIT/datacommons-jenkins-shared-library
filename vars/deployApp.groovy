@@ -13,7 +13,7 @@ def call(Map config=[:]){
     ) {
         deployProperties parameterName: "${config.parameterName}", repoName: "${config.repoName}"
         if (config.playbookRepoUrl){
-            gitCheckout checkoutDirectory: "playbooks", gitUrl: config.playbookRepoUrl, gitBranch: config.playbookRepoBranch
+            gitCheckout checkoutDirectory: "playbooks", gitUrl: config.playbookRepoUrl, gitToken: config.githubToken, gitBranch: config.playbookRepoBranch
         }else{
             gitCheckout checkoutDirectory: "playbooks", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
         }
