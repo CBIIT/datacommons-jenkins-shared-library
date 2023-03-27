@@ -17,7 +17,7 @@ def call(Map config=[:]){
         }else{
             gitCheckout checkoutDirectory: "playbooks", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
         }
-        gitCheckout checkoutDirectory: config.deploymentCheckoutDirectory, gitUrl: config.deploymentRepoUrl, gitBranch: params["Environment"]
+        gitCheckout checkoutDirectory: config.deploymentCheckoutDirectory, gitToken: config.githubToken, gitUrl: config.deploymentRepoUrl, gitBranch: params["Environment"]
         setEnvValues(){
             if (config.service == "frontend"){
                 env.BE_VERSION  = getVersion(service: "backend",deploymentFile: config.deploymentFile)
