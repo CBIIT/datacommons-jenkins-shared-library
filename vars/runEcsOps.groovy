@@ -13,9 +13,6 @@ def call(Map config=[:]){
         }else{
             gitCheckout checkoutDirectory: "playbooks", gitUrl: "https://github.com/CBIIT/icdc-devops", gitBranch: "master"
         }
-
-        sh "git submodule update --init"
-        sh "ls -la ${WORKSPACE}"
         stage("UpdateEcsService"){
                 runAnsible(
                         playbook: "${WORKSPACE}/playbooks/${config.playbook}",
