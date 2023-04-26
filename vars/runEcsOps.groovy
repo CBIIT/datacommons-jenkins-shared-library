@@ -7,9 +7,7 @@ def call(Map config=[:]){
             dockerRegistryUrl: "${config.dockerRegistryUrl}",
             registryCredentialsId: "${config.registryCredentialsId}"
     ) {
-        ecsOpsProperties  etlRepoUrl: "${config.etlRepoUrl}"
-        gitCheckout checkoutDirectory: "workspace", gitUrl: "${config.etlRepoUrl}",  gitBranch: params["ETLTag"]
-
+        ecsOpsProperties  
         if (config.playbookRepoUrl){
             gitCheckout checkoutDirectory: "playbooks", gitUrl: config.playbookRepoUrl, gitBranch: config.playbookRepoBranch
         }else{
