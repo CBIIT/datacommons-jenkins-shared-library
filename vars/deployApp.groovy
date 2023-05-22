@@ -12,6 +12,11 @@ def call(Map config=[:]){
             registryCredentialsId: "${config.registryCredentialsId}"
     ) {
         deployProperties parameterName: "${config.parameterName}", repoName: "${config.repoName}"
+        if (config.service == "backend" || config.service == "files"){
+            additionalParameters values: [
+                    booleanParam(defaultValue: false, name: 'AuthEnabled')
+            ]
+        }
         if (config.playbookRepoUrl){
             gitCheckout checkoutDirectory: "playbooks", gitUrl: config.playbookRepoUrl, gitToken: config.githubToken, gitBranch: config.playbookRepoBranch
         }else{
