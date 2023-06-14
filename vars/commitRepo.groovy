@@ -11,8 +11,8 @@ def call(Map config) {
         cd "${targetDirectory}"
         echo "Applying tag ${config.gitTag} to ${config.gitUrl}"
         git config --global push.followTags true
-        git config user.email "jenkins@bento-tools.org"
-        git config user.name "Bento Jenkins"
+        git config user.email "tructruong@yahoo.com"
+        git config user.name "Tracy Truong"
         git add --all .
         git commit -am "tagging latest deployment.yaml"
         git push "https://${GIT_TOKEN}:x-oauth-basic@${GIT_REPO_URL}" HEAD:${params.Environment}
