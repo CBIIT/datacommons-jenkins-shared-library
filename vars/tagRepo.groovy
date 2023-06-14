@@ -10,8 +10,8 @@ def call(Map config = [:]) {
         sh """
         cd "${targetDirectory}"
         echo "Applying tag ${config.gitTag} to ${config.gitUrl}"
-        git config user.email "jenkins@bento-tools.org"
-        git config user.name "Bento Jenkins"
+        git config user.email "tructruong@yahoo.com"
+        git config user.name "Tracy Truong"
         git tag --no-sign -a "${config.gitTag}.${BUILD_NUMBER}" -m "Jenkins tag: ${config.gitTag}.${BUILD_NUMBER}"
         git push "https://${GIT_TOKEN}:x-oauth-basic@${GIT_REPO_URL}" --tags
 """
