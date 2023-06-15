@@ -9,6 +9,9 @@ def call(Map config) {
     }
     sh """
         cd "${targetDirectory}"
+        echo "Target Directory ${targetDirectory}"
+        pwd
+        cat "deployments.yaml"
         echo "Applying tag ${config.gitTag} to ${config.gitUrl}"
         git config --global push.followTags true
         git config user.email "tructruong@yahoo.com"
