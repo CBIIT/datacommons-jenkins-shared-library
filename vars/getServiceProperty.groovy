@@ -4,7 +4,7 @@ def call(Map config = [:]){
     def propertyKey = config.property
     deployment.services.each {
         if (it.key == config.service) {
-            property = it.value.${propertyKey}
+            property = it.value."${propertyKey}"
             // property = it.value.version
         }
     }
