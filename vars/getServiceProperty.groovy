@@ -3,8 +3,8 @@ def call(Map config = [:]){
     def property = ""
     deployment.services.each {
         if (it.key == config.service) {
-            // property = it.value.${config.property}
-            property = it.value.version
+            property = it.value.${config.property}
+            // property = it.value.version
         }
     }
     return property
