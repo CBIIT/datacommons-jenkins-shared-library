@@ -6,6 +6,7 @@ def call(Map config = [:]){
                 it.value.version =  config.version
                 it.value.image = config.image
                 it.value.buildNumber = env.BUILD_NUMBER
+                it.value.uploadCliVersion = config.uploadCliVersion
                 writeYaml file: config.deploymentFile, data: deployment, overwrite: true
             }else{
                 def map = [version: config.version,image: config.image,buildNumber: env.BUILD_NUMBER ]
