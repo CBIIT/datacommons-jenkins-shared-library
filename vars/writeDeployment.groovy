@@ -6,7 +6,13 @@ def call(Map config = [:]){
                 it.value.version =  config.version
                 it.value.image = config.image
                 it.value.buildNumber = env.BUILD_NUMBER
-                it.value.uploadCliVersion = config.uploadCliVersion
+                if(config.additionalProperties){
+                    config.additionalProperties.each { key, value ->
+                        if (!it.value.containsKey(key)) {
+                            it.value[key] = value
+                        }
+                    }
+                }
                 writeYaml file: config.deploymentFile, data: deployment, overwrite: true
             }else{
                 def map = [version: config.version,image: config.image,buildNumber: env.BUILD_NUMBER ]
