@@ -6,8 +6,8 @@ def call(Map config = [:]){
                 it.value.version =  config.version
                 it.value.image = config.image
                 it.value.buildNumber = env.BUILD_NUMBER
-                if(config.additionalProperties){
-                    config.additionalProperties.each { key, value ->
+                if(it.value.additionalProperties ){
+                    it.value.additionalProperties.each { key, value ->
                         if (!it.value.containsKey(key)) {
                             it.value[key] = value
                         }
