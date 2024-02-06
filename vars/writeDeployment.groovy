@@ -7,15 +7,15 @@ def call(Map config = [:]){
                 it.value.image = config.image
                 it.value.buildNumber = env.BUILD_NUMBER
                 if(it.value.additionalProperties ){
-                    it.value.additionalProperties.each { key, value ->
-                        if (!it.value.containsKey(key)) {
-                            it.value[key] = value
-                        }
-                    }
+                    it.value.additionalProperties = it.value.additionalProperties
                 }
                 writeYaml file: config.deploymentFile, data: deployment, overwrite: true
             }else{
-                def map = [version: config.version,image: config.image,buildNumber: env.BUILD_NUMBER ]
+                def map = [
+                    version: config.version,
+                    image: config.image,
+                    buildNumber: env.BUILD_NUMBER,
+                ]
                 deployment.services[config.service] = map
                 writeYaml file: config.deploymentFile, data: deployment, overwrite: true
             }
