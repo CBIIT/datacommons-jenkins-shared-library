@@ -6,7 +6,7 @@ def call(Map config = [:]){
                 it.value.version =  config.version
                 it.value.image = config.image
                 it.value.buildNumber = env.BUILD_NUMBER
-                if(it.value.additionalProperties ){
+                if(it.value.additionalProperties != null ){
                     it.value.additionalProperties = it.value.additionalProperties
                 }
                 writeYaml file: config.deploymentFile, data: deployment, overwrite: true
@@ -15,6 +15,7 @@ def call(Map config = [:]){
                     version: config.version,
                     image: config.image,
                     buildNumber: env.BUILD_NUMBER,
+                    additionalProperties: it.value.additionalProperties
                 ]
                 deployment.services[config.service] = map
                 writeYaml file: config.deploymentFile, data: deployment, overwrite: true
