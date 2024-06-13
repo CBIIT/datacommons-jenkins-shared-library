@@ -7,12 +7,19 @@ def call(Map config = [:]){
                 it.value.version =  config.version
                 it.value.image = config.image
                 it.value.buildNumber = env.BUILD_NUMBER
-                if(it.value.additionalProperties != null ){
+                if(config.additionalProperties != null ){
+                    additionalProperties = config.additionalProperties
+                    println additionalProperties
+                }else if(it.value.additionalProperties != null ){
                     additionalProperties = it.value.additionalProperties
                     println additionalProperties
                 }
                 writeYaml file: config.deploymentFile, data: deployment, overwrite: true
             }else{
+                if(config.additionalProperties != null ){
+                    additionalProperties = config.additionalProperties
+                    println additionalProperties
+                }
                 def map = [
                     version: config.version,
                     image: config.image,
